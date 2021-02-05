@@ -5,7 +5,7 @@ login page
 
 @section('content')
     
-    @include('layouts.panels.flash-message')
+    @include('panels.flash-message')
     
     <form class="form form-control" action="{{ Route('login.process') }}" method="POST" enctype="multipart/form-data">
         @csrf

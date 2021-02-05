@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class OptionNameModel extends Model
+class OptionName extends Model
 {
     use HasFactory;
     

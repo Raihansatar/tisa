@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOptionNameModelsTable extends Migration
+class CreateOptionNameTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class CreateOptionNameModelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('option_name_models', function (Blueprint $table) {
+        Schema::create('option_name', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('product_id');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ class CreateOptionNameModelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('option_name_models');
+        Schema::dropIfExists('option_name');
     }
 }

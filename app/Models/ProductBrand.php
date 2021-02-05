@@ -5,12 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class OptionValueModel extends Model
+class ProductBrand extends Model
 {
     use HasFactory;
 
-    protected $fillable= [
-        'option_id',
+    protected $fillable = [
         'name',
     ];
 }

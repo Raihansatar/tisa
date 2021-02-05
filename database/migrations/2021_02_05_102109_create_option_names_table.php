@@ -15,7 +15,7 @@ class CreateOptionNamesTable extends Migration
     {
         Schema::create('option_names', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id');
+            $table->foreignId('product_id')->constrained('products');
             $table->string('name');
             $table->timestamps();
         });

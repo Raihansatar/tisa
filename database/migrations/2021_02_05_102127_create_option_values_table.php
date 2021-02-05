@@ -15,7 +15,7 @@ class CreateOptionValuesTable extends Migration
     {
         Schema::create('option_values', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('option_id');
+            $table->foreignId('option_id')->constrained('option_names');
             $table->string('name');
             $table->timestamps();
         });

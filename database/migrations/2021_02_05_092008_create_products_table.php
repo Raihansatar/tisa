@@ -15,13 +15,18 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->constrained('users');
             $table->string('name');
-            $table->foreignId('brand');
-            $table->foreignId('category');
+            $table->foreignId('brand')->constrained('product_brands');;
+            $table->foreignId('category')->constrained('product_categories');
+            // ->onUpdate('cascade')
+            // ->onDelete('cascade');
             $table->decimal('buying_price', 10, 2);
             $table->decimal('selling_price', 10, 2);
             $table->dateTime('buying_date');
+            // $table->foreign('user_id')->references('id')->on('users');
+            // $table->foreign('brand')->references('id')->on('product_brands');
+            // $table->foreign('category')->references('id')->on('product_categories');
             $table->timestamps();
         });
     }

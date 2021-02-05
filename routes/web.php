@@ -19,7 +19,7 @@ Route::get('/', function () {
     return view('index');
 })->name('index');
 
-Route::get('/login', [LoginController::class, 'index']);
+Route::get('/login', [LoginController::class, 'index'])->name('login.index');
 Route::get('/logout', [LoginController::class, 'logoutProcess'])->name('logout.process');
 Route::post('/login', [LoginController::class, 'loginProcess'])->name('login.process');
 

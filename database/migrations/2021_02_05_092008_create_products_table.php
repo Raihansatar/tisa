@@ -23,10 +23,11 @@ class CreateProductsTable extends Migration
             // ->onDelete('cascade');
             $table->decimal('buying_price', 10, 2);
             $table->decimal('selling_price', 10, 2);
-            $table->dateTime('buying_date');
+            $table->dateTime('buying_date')->nullable();
             // $table->foreign('user_id')->references('id')->on('users');
             // $table->foreign('brand')->references('id')->on('product_brands');
             // $table->foreign('category')->references('id')->on('product_categories');
+            $table->unsignedBigInteger('stock');
             $table->timestamps();
         });
     }

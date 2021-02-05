@@ -15,7 +15,13 @@ class ProductSeeder extends Seeder
     public function run()
     {
         Product::create([
-            
+            'user_id' => 1,
+            'name' => 'Baju',
+            'brand' => 10,
+            'category' => 8,
+            'buying_price' => 45.03,
+            'selling_price' => 50.03,
+            'stock' => 60
         ]);
     }
 }

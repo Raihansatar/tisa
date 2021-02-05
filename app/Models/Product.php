@@ -17,6 +17,7 @@ class Product extends Model
         'category',
         'buying_price',
         'selling_price',
-        'buying_date'
+        'buying_date',
+        'stock'
     ];
 }

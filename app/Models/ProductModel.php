@@ -16,5 +16,6 @@ class ProductModel extends Model
         'product_category',
         'product_buying_price',
         'product_selling_price',
+        'buying_date'
     ];
 }

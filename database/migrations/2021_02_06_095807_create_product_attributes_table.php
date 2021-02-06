@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOptionNamesTable extends Migration
+class CreateProductAttributesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateOptionNamesTable extends Migration
      */
     public function up()
     {
-        Schema::create('option_names', function (Blueprint $table) {
+        Schema::create('product_attributes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('product_id')->constrained('products');
-            $table->string('name');
+            $table->foreignId('product_id')->constrained('products')->cascadeOnDelete();
+            $table->string('attribute');
+            $table->string('value');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateOptionNamesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('option_names');
+        Schema::dropIfExists('product_attributes');
     }
 }

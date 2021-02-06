@@ -11,7 +11,7 @@
     <div class="card-body">
         <div>
             <table class="table table-hover" id="product_list_table">
-                <thead>
+                <thead class="table-primary"">
                     <th>Product Name</th>
                     <th>Buying Price</th>
                     <th>Selling Price</th>

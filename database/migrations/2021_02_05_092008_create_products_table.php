@@ -17,12 +17,13 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->string('name');
-            $table->foreignId('brand')->constrained('product_brands');;
+            $table->text('description')->nullable();
+            $table->foreignId('brand')->nullable()->constrained('product_brands');
             $table->foreignId('category')->constrained('product_categories');
             // ->onUpdate('cascade')
             // ->onDelete('cascade');
             $table->decimal('buying_price', 10, 2);
-            $table->decimal('selling_price', 10, 2);
+            $table->decimal('selling_price_per_unit', 10, 2);
             $table->dateTime('buying_date')->nullable();
             // $table->foreign('user_id')->references('id')->on('users');
             // $table->foreign('brand')->references('id')->on('product_brands');

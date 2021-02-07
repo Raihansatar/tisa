@@ -17,9 +17,9 @@ class CreateProductVariantsTable extends Migration
             $table->id();
             $table->foreignId('product_id')->constrained('products')->cascadeOnDelete();
             $table->string('variant')->nullable();
-            $table->decimal('buying_price', 10, 2);
+            $table->decimal('buying_price', 10, 2)->nullable();
             $table->decimal('selling_price_per_unit', 10, 2);
-            $table->dateTime('buying_date')->nullable();
+            $table->dateTime('buying_date')->nullable()->useCurrent();
             $table->unsignedBigInteger('stock');
             $table->softDeletes();
             $table->timestamps();

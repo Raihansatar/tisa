@@ -38,7 +38,7 @@ class ProductSeeder extends Seeder
             ),
             'buying_price' => 20,
             'selling_price_per_unit' => 0.30,
-            'stock' => 60
+            'stock' => 16
         ]);
 
         ProductVariant::create([
@@ -57,7 +57,7 @@ class ProductSeeder extends Seeder
             ),
             'buying_price' => 20,
             'selling_price_per_unit' => 0.30,
-            'stock' => 60
+            'stock' => 7
         ]);
 
         ProductVariant::create([
@@ -76,7 +76,7 @@ class ProductSeeder extends Seeder
             ),
             'buying_price' => 20,
             'selling_price_per_unit' => 0.30,
-            'stock' => 60
+            'stock' => 4
         ]);
 
         ProductVariant::create([
@@ -114,7 +114,7 @@ class ProductSeeder extends Seeder
             ),
             'buying_price' => 20,
             'selling_price_per_unit' => 1.00,
-            'stock' => 60
+            'stock' => 24
         ]);
 
         $product = Product::create([
@@ -136,7 +136,7 @@ class ProductSeeder extends Seeder
             ),
             'buying_price' => 20,
             'selling_price_per_unit' => 1.80,
-            'stock' => 60
+            'stock' => 30
         ]);
 
         $product = Product::create([

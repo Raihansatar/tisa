@@ -17,4 +17,9 @@ class Product extends Model
         'brand',
         'category'
     ];
+
+    public function product_variant()
+    {
+        return $this->hasMany(ProductVariant::class);
+    }
 }

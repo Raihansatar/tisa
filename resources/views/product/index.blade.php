@@ -13,8 +13,11 @@
             <table class="table table-hover" id="product_list_table">
                 <thead class="table-primary"">
                     <th>Product Name</th>
+                    <th>Category</th>
                     <th>Buying Price</th>
                     <th>Selling Price</th>
+                    <th>Stock</th>
+                    <th>Buying Date</th>
                     <th>Action</th>
                 </thead>
                 <tbody>
@@ -23,33 +26,6 @@
                         <td>RM 325253.325</td>
                         <td>RMwerwer.werw</td>
                         <td>Icon action sisni kei</td>
-                    </tr>
-                    <tr>
-                        <td>Nasi Ayam</td>
-                        <td>RM 325253.325</td>
-                        <td>RMwerwer.werw</td>
-                        <td>Icon action sisni kei</td>
-                    </tr>
-                    <tr>
-                        <td>Nasi Ayam</td>
-                        <td>RM 325253.325</td>
-                        <td>RMwerwer.werw</td>
-                        <td>Icon action sisni kei</td>
-                    </tr>
-                    <tr>
-                        <td>Nasi Ayam</td>
-                        <td>RM 325253.325</td>
-                        <td>RMwerwer.werw</td>
-                        <td>Icon action sisni kei</td>
-                    </tr>
-                    <tr>
-                        <td>Nasi Ayam</td>
-                        <td>TM 325253.325</td>
-                        <td>RMwerwer.werw</td>
-                        <td>Icon action sisni kei</td>
-                    </tr>
-                    <tr>
-                        <td>Nasi Ayam</td>
                         <td>RM 325253.325</td>
                         <td>RMwerwer.werw</td>
                         <td>Icon action sisni kei</td>
@@ -59,6 +35,8 @@
         </div>
     </div>
 </div>
+
+
 @endsection
 
 @push('custom-css')
@@ -70,26 +48,20 @@
     <script>
         $('document').ready(function(){
             $('#product_list_table').DataTable({
-                // "responsive": true,
-                // "serverSide": true,
-                // "ajax": "route('dropship.product.index') ",
-                // "columns": [
-                //     {data: 'dropship_id', name: 'dropship_id'},
-                //     {data: 'product_id', name: 'product_id'},
-                //     {data: 'status', name: 'status'},
-                //     {data: 'request_date', name: 'request_date'},
-                //     {data: 'respond_date', name: 'respond_date'},
-                //     {data: 'created_at', name: 'created_at'},
-                // ]
+                "responsive": true,
+                "serverSide": true,
+                "ajax": "{{ route('product.index.datatable') }}",
+                "columns": [
+                    {data: 'product_name', name: 'product_name'},
+                    {data: 'category', name: 'category'},
+                    {data: 'buying_price', name: 'buying_price'},
+                    {data: 'selling_price_per_unit', name: 'selling_price_per_unit'},
+                    {data: 'stock', name: 'stock'},
+                    {data: 'buying_date', name: 'buying_date'},
+                    {data: 'action', name: 'action'},
+                ]
             });
-
-            // $('#dropship-product-super').DataTable({
-            //     "responsive": true,
-                
-            // });
-            
             
         });
     </script>
-
 @endpush

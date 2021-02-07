@@ -20,6 +20,28 @@ class ProductSeeder extends Seeder
             'name' => 'Corntoz',
             'brand' => null,
             'category' => 1,
+        ]);
+
+        // $variant[0]['attribute'] = 'Flavor';
+        // $variant[0]['value'] = 'Large';
+        // $variant[1]['attribute'] = 'Size';
+        // $variant[1]['value'] = 'Large';
+        ProductVariant::create([
+            'product_id' => $product->id,
+            'variant' => json_encode(
+                array(
+                    array(
+                        'attribute'=> 'Flavor',
+                        'value' => 'Smoke BBQ'
+                    ),
+                    array(
+                        'attribute'=> 'Size',
+                        'value' => 'Mini'
+                    )
+                )
+            ),
+            // 'attribute' => 'Size',
+            // 'value' => 'Large',
             'buying_price' => 20,
             'selling_price_per_unit' => 0.30,
             'stock' => 60
@@ -27,47 +49,100 @@ class ProductSeeder extends Seeder
 
         ProductVariant::create([
             'product_id' => $product->id,
-            'attribute' => 'Size',
-            'value' => 'Large',
-        ]);
-        ProductVariant::create([
-            'product_id' => $product->id,
-            'attribute' => 'Size',
-            'value' => 'Mini',
-        ]);
-
-        ProductVariant::create([
-            'product_id' => $product->id,
-            'attribute' => 'Flavor',
-            'value' => 'Smoky BBQZ',
-        ]);
-
-        ProductVariant::create([
-            'product_id' => $product->id,
-            'attribute' => 'Flavor',
-            'value' => 'BBQ',
-        ]);
-
-        ProductVariant::create([
-            'product_id' => $product->id,
-            'attribute' => 'Flavor',
-            'value' => 'Original',
-        ]);
-
-        $product = Product::create([
-            'user_id' => 1,
-            'name' => '',
-            'brand' => 1,
-            'category' => 1,
-            'buying_price' => 45.03,
-            'selling_price_per_unit' => 50.03,
+            'variant' => json_encode(
+                array(
+                    array(
+                        'attribute'=> 'Flavor',
+                        'value' => 'Original'
+                    ),
+                    array(
+                        'attribute'=> 'Size',
+                        'value' => 'Mini'
+                    )
+                )
+            ),
+            'buying_price' => 20,
+            'selling_price_per_unit' => 0.30,
             'stock' => 60
         ]);
 
         ProductVariant::create([
             'product_id' => $product->id,
-            'attribute' => 'Flavor',
-            'value' => 'Smoky BBQZ',
+            'variant' => json_encode(
+                array(
+                    array(
+                        'attribute'=> 'Flavor',
+                        'value' => 'Smoke BBQ'
+                    ),
+                    array(
+                        'attribute'=> 'Size',
+                        'value' => 'Large'
+                    )
+                )
+            ),
+            'buying_price' => 20,
+            'selling_price_per_unit' => 0.30,
+            'stock' => 60
+        ]);
+
+        ProductVariant::create([
+            'product_id' => $product->id,
+            'variant' => json_encode(
+                array(
+                    array(
+                        'attribute'=> 'Flavor',
+                        'value' => 'Spicy'
+                    ),
+                    array(
+                        'attribute'=> 'Size',
+                        'value' => 'Mini'
+                    )
+                )
+            ),
+            'buying_price' => 20,
+            'selling_price_per_unit' => 0.30,
+            'stock' => 60
+        ]);
+
+        ProductVariant::create([
+            'product_id' => $product->id,
+            'variant' => json_encode(
+                array(
+                    array(
+                        'attribute'=> 'Flavor',
+                        'value' => 'Spicy'
+                    ),
+                    array(
+                        'attribute'=> 'Size',
+                        'value' => 'Large'
+                    )
+                )
+            ),
+            'buying_price' => 20,
+            'selling_price_per_unit' => 0.30,
+            'stock' => 60
+        ]);
+
+        $product = Product::create([
+            'user_id' => 1,
+            'name' => 'Air Milo',
+            'brand' => 1,
+            'category' => 1,
+        ]);
+
+        ProductVariant::create([
+            'product_id' => $product->id,
+            'variant' => json_encode(
+                array(
+                    array(
+                        'attribute'=> 'Size',
+                        'value' => 'Mini'
+                    )
+                )
+            ),
+            'buying_price' => 20,
+            'selling_price_per_unit' => 0.30,
+            'stock' => 60
         ]);
     }
 }

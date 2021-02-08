@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ProductCategory;
 use App\Models\ProductVariant;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -13,7 +14,8 @@ class ProductController extends Controller
     {
         // $data = Product::all();
         // $data = Product::with('product_variant')->get();
-        $data = ProductVariant::with('product')->get();
+        // $data = ProductVariant::with('product')->get()->first();
+        // $data = $data->product()->with('category')->get()->first()->name;
 
         // foreach($data as $datas){
         //     $variant = json_decode($datas->variant);
@@ -23,7 +25,7 @@ class ProductController extends Controller
         //         $data = $variants->value;
         //     }
         // }
-        // dd(json_decode($data));
+        // dd($data);
         return view('product.index');
     }
     
@@ -46,7 +48,8 @@ class ProductController extends Controller
             })
             ->editColumn('category', function ($row)
             {
-                return $row->product->category;
+                $data = ProductCategory::where('id', $row->product->category)->first();
+                return $data->name;
             })
             ->editColumn('buying_price', function ($row)
             {

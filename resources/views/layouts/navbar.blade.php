@@ -24,7 +24,7 @@
                 </ul>
             @guest
                 <div class="d-flex navbar-nav">
-                    <a class="nav-link" aria-current="page" href="{{ Route('login.index') }}">Login</a>
+                    <a class="nav-link" aria-current="page" href="{{ Route('login') }}">Login</a>
                 </div>
             @endguest
 

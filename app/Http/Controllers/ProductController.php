@@ -48,7 +48,7 @@ class ProductController extends Controller
             })
             ->editColumn('category', function ($row)
             {
-                $data = ProductCategory::where('id', $row->product->category)->first();
+                $data = ProductCategory::find($row->product->category);
                 return $data->name;
             })
             ->editColumn('buying_price', function ($row)

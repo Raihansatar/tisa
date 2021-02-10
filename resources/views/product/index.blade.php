@@ -20,7 +20,7 @@
     </div>
 
     <div class="d-flex align-items-center">
-        <button class="d-flex align-items-center btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <button class="d-flex align-items-center btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#addProductModal">
             <i class="bi bi-plus-square"></i>
             <span>Add</span>
         </button>
@@ -54,7 +54,7 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModal" aria-hidden="true">
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
@@ -62,7 +62,29 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          ...
+            <form class="row g-3">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingName" placeholder="Milo Ais">
+                    <label for="floatingName">Product Name</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <textarea class="form-control" placeholder="Milo dari Nesle" id="floatingDescription"></textarea>
+                    <label for="floatingDescription">Description</label>
+                </div>
+                <div class="form-floating">
+                    <select class="form-select" id="floatingSelect" aria-label="Brand">
+                        <option selected>Please Select</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                    <label for="floatingSelect">Works with selects</label>
+                  </div>
+                {{-- <div class="form-floating">
+                    <input type="text" class="form-control" id="floatingDescription" placeholder="Milo dari Nesle">
+                    <label for="floatingDescription">Description</label>
+                </div> --}}
+            </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

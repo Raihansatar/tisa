@@ -84,6 +84,8 @@
                     <input type="text" class="form-control" id="floatingDescription" placeholder="Milo dari Nesle">
                     <label for="floatingDescription">Description</label>
                 </div> --}}
+
+                
             </form>
         </div>
         <div class="modal-footer">

@@ -238,18 +238,19 @@
 
                 hide: function (deleteElement) {
                     $(this).slideUp(deleteElement);
-                    $('document').ready(function(){
-                        $(".nilai").change(function() {
+                    //* unfinished
+                    // $('document').ready(function(){
+                    //     $(".nilai").change(function() {
     
-                            var fullname = ""
-                            $(".nilai").each(function(){
-                                fullname = fullname + " - " +  $( this ).val();
-                            })
+                    //         var fullname = ""
+                    //         $(".nilai").each(function(){
+                    //             fullname = fullname + " - " +  $( this ).val();
+                    //         })
         
-                            $('#product_full_name').html($('#product_name').val() + fullname);
+                    //         $('#product_full_name').html($('#product_name').val() + fullname);
     
-                        });
-                    })
+                    //     });
+                    // })
                 },then: function(){
                     alert("aweawe")
                 }

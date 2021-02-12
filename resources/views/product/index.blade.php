@@ -90,7 +90,7 @@
                     <label for="floatingCategory">Category</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="datetime-local"" class="form-control" value="YYYY-MM-DD" id="floatingDate" placeholder="Date">
+                    <input type="datetime-local"" class="form-control" value="yyyy-MM-ddThh:mm" id="floatingDate" placeholder="Date">
                     <label for="floatingDate">Date Added</label>
                 </div>
             </form>
@@ -111,6 +111,9 @@
 
 @push('custom-js')
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.js"></script>
+    <script src="{{ asset('assets/plugins/moment-with-locales.js') }}" crossorigin="anonymous"></script>
+    {{-- <script src="{{ asset('assets/js/bootstrap.bundle.js') }}" crossorigin="anonymous"></script> --}}
+
     <script>
         $('document').ready(function(){
             $('#product_list_table').DataTable({
@@ -125,6 +128,14 @@
                     {data: 'stock', name: 'stock'},
                     {data: 'buying_date', name: 'buying_date'},
                     {data: 'action', name: 'action'},
+                ],
+                "columnDefs": [
+                    {
+                        targets: 5,
+                        "render": function ( data, type, row ) {
+                            return moment(data).calendar();;
+                        },
+                    },
                 ]
             });
             

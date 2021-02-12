@@ -26,6 +26,6 @@ Route::post('/login', [LoginController::class, 'loginProcess'])->name('login.pro
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/product', [ProductController::class, 'index'])->name('product.index');
+    Route::post('/product', [ProductController::class, 'createProduct'])->name('product.create');
     Route::get('/product/datatable', [ProductController::class, 'index_datatable'])->name('product.index.datatable');
-
 });

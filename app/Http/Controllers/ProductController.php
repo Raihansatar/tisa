@@ -84,4 +84,9 @@ class ProductController extends Controller
             // ->rawColumns(['category','selling_price_per_unit', 'stock', 'buying_date'])
             ->make(true);
     }
+
+    public function createProduct(Request $request)
+    {
+        dd($request);
+    }
 }

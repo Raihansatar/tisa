@@ -60,8 +60,9 @@
           <h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-            <form class="row g-3" action="git co">
+        <form class="row g-3" id="addProductForm" action="{{ Route('product.create') }}" method="POST">
+            @csrf
+            <div class="modal-body">
                 <div class="row mb-3">
                     <div class="col-6">
                         <label class="col-form-label col-12" for="">Brand</label>
@@ -87,19 +88,13 @@
                 <div class="row mb-3">
                     <div class="col-12">
                         <label for="floatingName" class="col-form-label">Product Name</label>
-                        <input type="text" class="form-control" id="product_name" placeholder="Milo Ais">
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-12">
-                        <label for="floatingDescription" class="col-form-label">Description</label>
-                        <textarea class="form-control" placeholder="Milo dari Nesle" id="floatingDescription"  style="height: 100px"></textarea>
+                        <input type="text" class="form-control" name="product_name" id="product_name" placeholder="Milo Ais">
                     </div>
                 </div>
                 <div class="col-12">
                     <h4>Variasi</h4>
                 </div>
-                <div  id="variasiForm">
+                <div id="variasiRepeater">
                     <span data-repeater-list="">
                         <div class="row mb-3" data-repeater-item>
                             <div class="col-md-4">
@@ -132,19 +127,44 @@
                     </div>
 
                 </div>
-                
+
+                <span id="product_full_name"></span>
+                <div class="col-12">
+                    <h4>Details</h4>
+                </div>
                 <div class="row mb-3">
-                    <div class="col-md-6 col-12">
-                        <label for="floatingDate">Date Added</label>
-                        <input type="datetime-local"" class="form-control" value="yyyy-MM-ddThh:mm" id="floatingDate" placeholder="Date">
+                    <div class="col-12">
+                        <label for="floatingDescription" class="col-form-label">Description</label>
+                        <textarea class="form-control" placeholder="Milo dari Nesle" id="floatingDescription" name="description" style="height: 100px"></textarea>
                     </div>
                 </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
+                <div class="row mb-3">
+                    <div class="col-6">
+                        <label for="" class="col-form-label">Buying Price</label>
+                        <input type="text" class="form-control" min="00.00" name="product_buying_price" id="product_buying_price" placeholder="10.00">
+                    </div>
+                    <div class="col-6">
+                        <label for="" class="col-form-label">Selling Price per Unit</label>
+                        <input type="text" class="form-control" min=00.00 name="product_selling_price" id="product_selling_price" placeholder="10.00">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6 col-12">
+                        <label for="">Stock</label>
+                        <input type="number" name="stock" class="form-control" value="yyyy-MM-ddThh:mm" id="stock" placeholder="">
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <label for="floatingDate">Date Added</label>
+                        <input type="datetime-local" name="date_added" class="form-control" value="yyyy-MM-ddThh:mm" id="floatingDate" placeholder="Date">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+        </form>
+        
       </div>
     </div>
   </div>
@@ -170,12 +190,17 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            $('#variasiForm').repeater({
-                initEmpty: false,
+            $('#addProductForm').submit(function(e){
+                e.preventDefault();
+                var data = $("#addProductForm").serializeArray()
+                console.table(data)
+            });
+            $('#variasiRepeater').repeater({
+                initEmpty: true,
 
-                defaultValues: {
-                    'value': '',
-                },
+                // defaultValues: {
+                //     'value': '',
+                // },
 
                 show: function () {
                     $(this).slideDown();

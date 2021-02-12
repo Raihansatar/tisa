@@ -128,7 +128,7 @@
 
                 </div>
 
-                <span id="product_full_name"></span>
+                <div>Fullname = <span id="product_full_name"></span></div>
                 <div class="col-12">
                     <h4>Details</h4>
                 </div>

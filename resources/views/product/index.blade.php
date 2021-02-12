@@ -103,7 +103,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="" class="col-form-label">Nilai</label>
-                                <input type="text" class="form-control" name="value">
+                                <input type="text" class="form-control nilai" name="value">
                             </div>
                             {{-- <div class="col-md-4 d-flex align-bottom" style="background-color: red"> --}}
                             <div class="col-md-4">
@@ -190,11 +190,27 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+
+            $('#product_name').change(function(){
+                $('document').ready(function(){
+                    var fullname = ""
+                    $(".nilai").each(function(){
+                        fullname = fullname + " - " +  $( this ).val();
+                    })
+                    
+                    // console.log(fullname)
+                    $('#product_full_name').html($('#product_name').val() + fullname);
+                })
+            });
+
             $('#addProductForm').submit(function(e){
                 e.preventDefault();
                 var data = $("#addProductForm").serializeArray()
                 console.table(data)
             });
+
+
+
             $('#variasiRepeater').repeater({
                 initEmpty: true,
 
@@ -202,8 +218,24 @@
                 //     'value': '',
                 // },
 
-                show: function () {
+                show: function (){
+
+                    $(".nilai").change(function() {
+                        // console.log( $( this ).val() );
+
+                        var fullname = ""
+                        $(".nilai").each(function(){
+                            fullname = fullname + " - " +  $( this ).val();
+                        })
+                        
+                        // console.log(fullname)
+                        $('#product_full_name').html($('#product_name').val() + fullname);
+
+
+                    });
+
                     $(this).slideDown();
+                    
                 },
 
                 hide: function (deleteElement) {

@@ -62,36 +62,39 @@
         </div>
         <div class="modal-body">
             <form class="row g-3">
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingName" placeholder="Milo Ais">
-                    <label for="floatingName">Product Name</label>
+                <div class="mb-3">
+                    <label for="floatingName" class="col-form-label">Product Name</label>
+                    <input type="text" class="form-control" id="product_name" placeholder="Milo Ais">
                 </div>
-                <div class="form-floating mb-3">
+                <div class="mb-3">
+                    <label for="floatingDescription" class="col-form-label">Description</label>
                     <textarea class="form-control" placeholder="Milo dari Nesle" id="floatingDescription"  style="height: 100px"></textarea>
-                    <label for="floatingDescription">Description</label>
                 </div>
-                <div class="form-floating mb-3">
-                    <select class="form-select" name="product_brand" id="floatingBrand" aria-label="Brand">
-                        <option selected>Please Select</option>
-                        @foreach ($brands as $brand)
-                            <option value="{{ $brand->id }}">{{ $brand->name }}</option>
-                        @endforeach
+                <div class="row">
+                    <div class="col-6">
+                        <label class="col-form-label col-12" for="">Brand</label>
+                        <select class="form-control col-12" style="width: 100%" name="product_brand" id="brand" aria-label="Brand">
+                            <option>Please Select</option>
+                            @foreach ($brands as $brand)
+                                <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                            @endforeach
+    
+                        </select>
+                    </div>
 
-                    </select>
-                    <label for="floatingBrand">Brand</label>
+                    <div class="col-6">
+                        <label for="" class="col-form-label col-12">Category</label>
+                        <select class="form-control col-12" style="width: 100%" name="product_category" id="category" aria-label="Brand">
+                            <option>Please Select</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
-                <div class="form-floating mb-3">
-                    <select class="form-select" name="product_category" id="floatingCategory" aria-label="Brand">
-                        <option selected>Please Select</option>
-                        @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->name }}</option>
-                        @endforeach
-                    </select>
-                    <label for="floatingCategory">Category</label>
-                </div>
-                <div class="form-floating mb-3">
-                    <input type="datetime-local"" class="form-control" value="yyyy-MM-ddThh:mm" id="floatingDate" placeholder="Date">
+                <div class="mb-3">
                     <label for="floatingDate">Date Added</label>
+                    <input type="datetime-local"" class="form-control" value="yyyy-MM-ddThh:mm" id="floatingDate" placeholder="Date">
                 </div>
             </form>
         </div>
@@ -107,15 +110,60 @@
 
 @push('custom-css')
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endpush
 
 @push('custom-js')
+
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.js"></script>
     <script src="{{ asset('assets/plugins/moment-with-locales.js') }}" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     {{-- <script src="{{ asset('assets/js/bootstrap.bundle.js') }}" crossorigin="anonymous"></script> --}}
 
     <script>
         $('document').ready(function(){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $('#brand').select2({
+                dropdownParent: $('#addProductModal'),
+                placeholder: 'Select an option',
+                "ajax": {
+                    url: '{{ Route('getBrand') }}',
+                    dataType: 'json',
+                    processResults: function (data) {
+                        return {
+                            results:  $.map(data, function (item) {
+                                return {
+                                    text: item.name,
+                                    id: item.id
+                                }
+                            })
+                        };
+                    },
+                }
+            });
+            $('#category').select2({
+                dropdownParent: $('#addProductModal'),
+                placeholder: 'Select an option',
+                "ajax": {
+                    url: '{{ Route('getCategory') }}',
+                    dataType: 'json',
+                    processResults: function (data) {
+                        return {
+                            results:  $.map(data, function (item) {
+                                return {
+                                    text: item.name,
+                                    id: item.id
+                                }
+                            })
+                        };
+                    },
+                }
+            });
             $('#product_list_table').DataTable({
                 "responsive": true,
                 "serverSide": true,

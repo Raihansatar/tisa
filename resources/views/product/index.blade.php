@@ -61,7 +61,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form class="row g-3">
+            <form class="row g-3" action="git co">
                 <div class="row mb-3">
                     <div class="col-6">
                         <label class="col-form-label col-12" for="">Brand</label>
@@ -96,19 +96,41 @@
                         <textarea class="form-control" placeholder="Milo dari Nesle" id="floatingDescription"  style="height: 100px"></textarea>
                     </div>
                 </div>
+                <div class="col-12">
+                    <h4>Variasi</h4>
+                </div>
+                <div  id="variasiForm">
+                    <span data-repeater-list="">
+                        <div class="row mb-3" data-repeater-item>
+                            <div class="col-md-4">
+                                <label for="" class="col-form-label">Attribute</label>
+                                <input type="text" class="form-control" name="attribute">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="" class="col-form-label">Nilai</label>
+                                <input type="text" class="form-control" name="value">
+                            </div>
+                            {{-- <div class="col-md-4 d-flex align-bottom" style="background-color: red"> --}}
+                            <div class="col-md-4">
+                                {{-- <div class="col-12"></div> --}}
+                                <label for="" class="col-form-label">Delete</label>
+                                <div class="col-12">
+                                    <button type="button" data-repeater-delete="" class="btn btn-sm btn-danger">
+                                        Delete
+                                    </button>
 
-                <div class="row mb-3">
-                    <div class="col-12">
-                        <h4>Variasi</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </span>
+                    <div class="row mb-3">
+                        <div class="col-lg-6">
+                            <a href="javascript:;" data-repeater-create="" class="btn btn-sm btn-primary">
+                                <i class="la la-plus"></i>Add
+                            </a>
+                        </div>
                     </div>
-                    <div class="col-6">
-                        <label for="" class="col-form-label">Attribute</label>
-                        <input type="text" class="form-control" name="attribute[]" id="">
-                    </div>
-                    <div class="col-6">
-                        <label for="" class="col-form-label">Nilai</label>
-                        <input type="text" class="form-control" name="value[]" id="">
-                    </div>
+
                 </div>
                 
                 <div class="row mb-3">
@@ -138,8 +160,8 @@
 
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.js"></script>
     <script src="{{ asset('assets/plugins/moment-with-locales.js') }}" crossorigin="anonymous"></script>
+    <script src="{{ asset('assets/plugins/jquery.repeater.js') }}" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    {{-- <script src="{{ asset('assets/js/bootstrap.bundle.js') }}" crossorigin="anonymous"></script> --}}
 
     <script>
         $('document').ready(function(){
@@ -148,6 +170,22 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+            $('#variasiForm').repeater({
+                initEmpty: false,
+
+                defaultValues: {
+                    'value': '',
+                },
+
+                show: function () {
+                    $(this).slideDown();
+                },
+
+                hide: function (deleteElement) {
+                    $(this).slideUp(deleteElement);
+                }
+            });
+            
 
             $('#brand').select2({
                 dropdownParent: $('#addProductModal'),

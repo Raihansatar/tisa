@@ -4,7 +4,6 @@
 
 @section('content')
 
-
 <div class="d-flex justify-content-between">
     <div class="d-flex align-items-end">
         <div class="d-flex pe-2">
@@ -58,7 +57,7 @@
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -68,24 +67,32 @@
                     <label for="floatingName">Product Name</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <textarea class="form-control" placeholder="Milo dari Nesle" id="floatingDescription"></textarea>
+                    <textarea class="form-control" placeholder="Milo dari Nesle" id="floatingDescription"  style="height: 100px"></textarea>
                     <label for="floatingDescription">Description</label>
                 </div>
-                <div class="form-floating">
-                    <select class="form-select" id="floatingSelect" aria-label="Brand">
+                <div class="form-floating mb-3">
+                    <select class="form-select" name="product_brand" id="floatingBrand" aria-label="Brand">
                         <option selected>Please Select</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
-                    <label for="floatingSelect">Works with selects</label>
-                  </div>
-                {{-- <div class="form-floating">
-                    <input type="text" class="form-control" id="floatingDescription" placeholder="Milo dari Nesle">
-                    <label for="floatingDescription">Description</label>
-                </div> --}}
+                        @foreach ($brands as $brand)
+                            <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                        @endforeach
 
-                
+                    </select>
+                    <label for="floatingBrand">Brand</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <select class="form-select" name="product_category" id="floatingCategory" aria-label="Brand">
+                        <option selected>Please Select</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                    <label for="floatingCategory">Category</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="datetime-local"" class="form-control" value="YYYY-MM-DD" id="floatingDate" placeholder="Date">
+                    <label for="floatingDate">Date Added</label>
+                </div>
             </form>
         </div>
         <div class="modal-footer">

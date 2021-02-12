@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ProductBrand;
 use App\Models\ProductCategory;
 use App\Models\ProductVariant;
 use Illuminate\Http\Request;
@@ -26,7 +27,9 @@ class ProductController extends Controller
         //     }
         // }
         // dd($data);
-        return view('product.index');
+        $category = ProductCategory::all();
+        $brand = ProductBrand::all();
+        return view('product.index', ['categories' => $category, 'brands' => $brand]);
     }
     
     public function index_datatable()

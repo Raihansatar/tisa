@@ -62,15 +62,7 @@
         </div>
         <div class="modal-body">
             <form class="row g-3">
-                <div class="mb-3">
-                    <label for="floatingName" class="col-form-label">Product Name</label>
-                    <input type="text" class="form-control" id="product_name" placeholder="Milo Ais">
-                </div>
-                <div class="mb-3">
-                    <label for="floatingDescription" class="col-form-label">Description</label>
-                    <textarea class="form-control" placeholder="Milo dari Nesle" id="floatingDescription"  style="height: 100px"></textarea>
-                </div>
-                <div class="row">
+                <div class="row mb-3">
                     <div class="col-6">
                         <label class="col-form-label col-12" for="">Brand</label>
                         <select class="form-control col-12" style="width: 100%" name="product_brand" id="brand" aria-label="Brand">
@@ -92,9 +84,38 @@
                         </select>
                     </div>
                 </div>
-                <div class="mb-3">
-                    <label for="floatingDate">Date Added</label>
-                    <input type="datetime-local"" class="form-control" value="yyyy-MM-ddThh:mm" id="floatingDate" placeholder="Date">
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <label for="floatingName" class="col-form-label">Product Name</label>
+                        <input type="text" class="form-control" id="product_name" placeholder="Milo Ais">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <label for="floatingDescription" class="col-form-label">Description</label>
+                        <textarea class="form-control" placeholder="Milo dari Nesle" id="floatingDescription"  style="height: 100px"></textarea>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <h4>Variasi</h4>
+                    </div>
+                    <div class="col-6">
+                        <label for="" class="col-form-label">Attribute</label>
+                        <input type="text" class="form-control" name="attribute[]" id="">
+                    </div>
+                    <div class="col-6">
+                        <label for="" class="col-form-label">Nilai</label>
+                        <input type="text" class="form-control" name="value[]" id="">
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-md-6 col-12">
+                        <label for="floatingDate">Date Added</label>
+                        <input type="datetime-local"" class="form-control" value="yyyy-MM-ddThh:mm" id="floatingDate" placeholder="Date">
+                    </div>
                 </div>
             </form>
         </div>

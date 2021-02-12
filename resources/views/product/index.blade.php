@@ -221,14 +221,12 @@
                 show: function (){
 
                     $(".nilai").change(function() {
-                        // console.log( $( this ).val() );
 
                         var fullname = ""
                         $(".nilai").each(function(){
                             fullname = fullname + " - " +  $( this ).val();
                         })
                         
-                        // console.log(fullname)
                         $('#product_full_name').html($('#product_name').val() + fullname);
 
 
@@ -240,6 +238,20 @@
 
                 hide: function (deleteElement) {
                     $(this).slideUp(deleteElement);
+                    $('document').ready(function(){
+                        $(".nilai").change(function() {
+    
+                            var fullname = ""
+                            $(".nilai").each(function(){
+                                fullname = fullname + " - " +  $( this ).val();
+                            })
+        
+                            $('#product_full_name').html($('#product_name').val() + fullname);
+    
+                        });
+                    })
+                },then: function(){
+                    alert("aweawe")
                 }
             });
             

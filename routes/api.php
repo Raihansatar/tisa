@@ -21,47 +21,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/brand', function (Request $request) {
-    $data = [];
 
-    try{
-        if($request->has('q')){
-            $search = $request->q;
-            $data =ProductBrand::select("id","name")
-                    ->where('name','LIKE',"%$search%")
-                    ->get();
-        }else{
-            $data = ProductBrand::select("id", "name")->get();
-        }
-
-    }catch(Exception $e){
-        return $e;
-    }
-
-
-    return response()->json($data);
-})->name('getBrand');
-
-Route::get('/category', function (Request $request) {
-    $data = [];
-
-    try{
-        if($request->has('q')){
-            $search = $request->q;
-            $data =ProductCategory::select("id","name")
-                    ->where('name','LIKE',"%$search%")
-                    ->get();
-        }else{
-            $data = ProductCategory::select("id", "name")->get();
-        }
-        
-    }catch(Exception $e){
-        return $e;
-    }
-
-
-    return response()->json($data);
-})->name('getCategory');
-
-Route::post('/product/variasi/add', [ProductController::class, 'createProduct'] )->name('product.variasi.add');
 

@@ -6,7 +6,10 @@ use App\Models\Product;
 use App\Models\ProductBrand;
 use App\Models\ProductCategory;
 use App\Models\ProductVariant;
+use Exception;
+use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class ProductController extends Controller
@@ -87,13 +90,26 @@ class ProductController extends Controller
 
     public function createProduct(Request $request)
     {
-        // Product::create([
-        //     'name' => $request->name
-        //     'description' =>
-        //     'brand' =>
-        //     'category' =>
-        // ]);
-        return response()->json($request);
-        // dd($request);
+        try{
+            $product = Product::create([
+                'user_id' => Auth::id(),
+                'name' => $request->product_name,
+                'description' => $request->product_description,
+                'brand' => $request->product_brand,
+                'category' => $request->product_category
+            ]);
+    
+            $product_variant = ProductVariant::create([
+                'product_id' => $product->id,
+                'variant' => $request->product_variasi,
+                'buying_price' => $request->product_buying_price,
+                'selling_price_per_unit' => $request->product_selling_price,
+                'stock' => $request->product_stock
+            ]);
+            return response()->json($product_variant);
+        }catch(Exception $e){
+            return response()->json($e);
+        }
+        
     }
 }

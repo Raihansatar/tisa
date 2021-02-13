@@ -233,10 +233,10 @@
                 var formData = new FormData();
 
                 formData.append('product_name', $('input[name=product_name]').val());
-                formData.append('product_description', $('input[name=product_description]').val());
-                formData.append('product_brand', $('input[name=product_brand]').val());
-                formData.append('product_category', $('input[name=product_category]').val());
-                formData.append('product_variasi', (($('#variasiRepeater').repeaterVal()[""] == null)? "null" : $('#variasiRepeater').repeaterVal()[""]));
+                formData.append('product_description', $('textarea[name=product_description]').val());
+                formData.append('product_brand', $('select[name=product_brand]').val());
+                formData.append('product_category', $('select[name=product_category]').val());
+                formData.append('product_variasi', (($('#variasiRepeater').repeaterVal()[""] == null)? "null" : JSON.stringify($('#variasiRepeater').repeaterVal()[""])));
                 formData.append('product_buying_price', $('input[name=product_buying_price]').val());
                 formData.append('product_selling_price', $('input[name=product_selling_price]').val());
                 formData.append('product_date_added', $('input[name=product_date_added]').val());

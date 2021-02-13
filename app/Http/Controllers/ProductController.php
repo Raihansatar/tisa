@@ -87,6 +87,13 @@ class ProductController extends Controller
 
     public function createProduct(Request $request)
     {
-        dd($request);
+        // Product::create([
+        //     'name' => $request->name
+        //     'description' =>
+        //     'brand' =>
+        //     'category' =>
+        // ]);
+        return response()->json($request);
+        // dd($request);
     }
 }

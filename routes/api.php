@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use App\Models\ProductBrand;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
@@ -62,7 +63,5 @@ Route::get('/category', function (Request $request) {
     return response()->json($data);
 })->name('getCategory');
 
-Route::post('/product/variasi/add', function (Request $request) {
-    return response()->json($request);
-})->name('product.variasi.add');
+Route::post('/product/variasi/add', [ProductController::class, 'createProduct'] )->name('product.variasi.add');
 

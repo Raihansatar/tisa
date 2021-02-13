@@ -137,7 +137,7 @@
                     <div class="row mb-3">
                         <div class="col-12">
                             <label for="floatingDescription" class="col-form-label">Description</label>
-                            <textarea class="form-control" placeholder="Milo dari Nesle" id="floatingDescription" name="description" style="height: 100px"></textarea>
+                            <textarea class="form-control" placeholder="Milo dari Nesle" id="floatingDescription" name="product_description" style="height: 100px"></textarea>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -153,11 +153,11 @@
                     <div class="row mb-3">
                         <div class="col-md-6 col-12">
                             <label for="">Stock</label>
-                            <input type="number" name="stock" class="form-control" value="yyyy-MM-ddThh:mm" id="stock" placeholder="">
+                            <input type="number" name="product_stock" class="form-control" id="stock" placeholder="">
                         </div>
                         <div class="col-md-6 col-12">
                             <label for="floatingDate">Date Added</label>
-                            <input type="datetime-local" name="date_added" class="form-control" value="yyyy-MM-ddThh:mm" id="floatingDate" placeholder="Date">
+                            <input type="datetime-local" name="product_date_added" class="form-control" value="yyyy-MM-ddThh:mm" id="floatingDate" placeholder="Date">
                         </div>
                     </div>
                 </div>
@@ -188,6 +188,29 @@
 
     <script>
         $('document').ready(function(){
+            var table = $('#product_list_table').DataTable({
+                "responsive": true,
+                "serverSide": true,
+                "ajax": "{{ route('product.index.datatable') }}",
+                "columns": [
+                    {data: 'product_name', name: 'product_name'},
+                    {data: 'category', name: 'category'},
+                    {data: 'buying_price', name: 'buying_price'},
+                    {data: 'selling_price_per_unit', name: 'selling_price_per_unit'},
+                    {data: 'stock', name: 'stock'},
+                    {data: 'buying_date', name: 'buying_date'},
+                    {data: 'action', name: 'action'},
+                ],
+                "columnDefs": [
+                    {
+                        targets: 5,
+                        "render": function ( data, type, row ) {
+                            return moment(data).calendar();;
+                        },
+                    },
+                ]
+            });
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -207,19 +230,28 @@
 
             $('#addProductForm').submit(function(e){
                 e.preventDefault();
-                var data = $("#addProductForm").serializeArray()
-                console.table($('#variasiRepeater').repeaterVal()[""])
+                var formData = new FormData();
+
+                formData.append('product_name', $('input[name=product_name]').val());
+                formData.append('product_description', $('input[name=product_description]').val());
+                formData.append('product_brand', $('input[name=product_brand]').val());
+                formData.append('product_category', $('input[name=product_category]').val());
+                formData.append('product_variasi', (($('#variasiRepeater').repeaterVal()[""] == null)? "null" : $('#variasiRepeater').repeaterVal()[""]));
+                formData.append('product_buying_price', $('input[name=product_buying_price]').val());
+                formData.append('product_selling_price', $('input[name=product_selling_price]').val());
+                formData.append('product_date_added', $('input[name=product_date_added]').val());
+                formData.append('product_stock', $('input[name=product_stock]').val()); 
 
                 $.ajax({
                     url: "{{ route('product.variasi.add') }}",
-                    data: {
-                        'product' : data,
-                        'variasi' : (($('#variasiRepeater').repeaterVal()[""]==null)? "null" : $('#variasiRepeater').repeaterVal()[""])
-                    },
+                    data: formData,
+                    contentType: false,
+                    processData: false,
                     type: 'POST',
                     dataType: "JSON",
                     success: function(data){
                         console.log(data)
+                        table.draw();
                     }
                 })
 
@@ -302,29 +334,6 @@
                     },
                 }
             });
-            $('#product_list_table').DataTable({
-                "responsive": true,
-                "serverSide": true,
-                "ajax": "{{ route('product.index.datatable') }}",
-                "columns": [
-                    {data: 'product_name', name: 'product_name'},
-                    {data: 'category', name: 'category'},
-                    {data: 'buying_price', name: 'buying_price'},
-                    {data: 'selling_price_per_unit', name: 'selling_price_per_unit'},
-                    {data: 'stock', name: 'stock'},
-                    {data: 'buying_date', name: 'buying_date'},
-                    {data: 'action', name: 'action'},
-                ],
-                "columnDefs": [
-                    {
-                        targets: 5,
-                        "render": function ( data, type, row ) {
-                            return moment(data).calendar();;
-                        },
-                    },
-                ]
-            });
-            
         });
     </script>
 @endpush

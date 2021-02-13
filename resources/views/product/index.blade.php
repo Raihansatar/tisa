@@ -63,99 +63,102 @@
         <form class="row g-3" id="addProductForm" action="{{ Route('product.create') }}" method="POST">
             @csrf
             <div class="modal-body">
-                <div class="row mb-3">
-                    <div class="col-6">
-                        <label class="col-form-label col-12" for="">Brand</label>
-                        <select class="form-control col-12" style="width: 100%" name="product_brand" id="brand" aria-label="Brand">
-                            <option>Please Select</option>
-                            @foreach ($brands as $brand)
-                                <option value="{{ $brand->id }}">{{ $brand->name }}</option>
-                            @endforeach
+                <div class="px-4">
+
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label class="col-form-label col-12" for="">Brand</label>
+                            <select class="form-control col-12" style="width: 100%" name="product_brand" id="brand" aria-label="Brand">
+                                <option>Please Select</option>
+                                @foreach ($brands as $brand)
+                                    <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                @endforeach
+        
+                            </select>
+                        </div>
     
-                        </select>
+                        <div class="col-6">
+                            <label for="" class="col-form-label col-12">Category</label>
+                            <select class="form-control col-12" style="width: 100%" name="product_category" id="category" aria-label="Brand">
+                                <option>Please Select</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
-
-                    <div class="col-6">
-                        <label for="" class="col-form-label col-12">Category</label>
-                        <select class="form-control col-12" style="width: 100%" name="product_category" id="category" aria-label="Brand">
-                            <option>Please Select</option>
-                            @foreach ($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-                            @endforeach
-                        </select>
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label for="floatingName" class="col-form-label">Product Name</label>
+                            <input type="text" class="form-control" name="product_name" id="product_name" placeholder="Milo Ais">
+                        </div>
                     </div>
-                </div>
-                <div class="row mb-3">
                     <div class="col-12">
-                        <label for="floatingName" class="col-form-label">Product Name</label>
-                        <input type="text" class="form-control" name="product_name" id="product_name" placeholder="Milo Ais">
+                        <h4>Variasi</h4>
                     </div>
-                </div>
-                <div class="col-12">
-                    <h4>Variasi</h4>
-                </div>
-                <div id="variasiRepeater">
-                    <span data-repeater-list="">
-                        <div class="row mb-3" data-repeater-item>
-                            <div class="col-md-4">
-                                <label for="" class="col-form-label">Attribute</label>
-                                <input type="text" class="form-control" name="attribute">
-                            </div>
-                            <div class="col-md-4">
-                                <label for="" class="col-form-label">Nilai</label>
-                                <input type="text" class="form-control nilai" name="value">
-                            </div>
-                            {{-- <div class="col-md-4 d-flex align-bottom" style="background-color: red"> --}}
-                            <div class="col-md-4">
-                                {{-- <div class="col-12"></div> --}}
-                                <label for="" class="col-form-label">Delete</label>
-                                <div class="col-12">
-                                    <button type="button" data-repeater-delete="" class="btn btn-sm btn-danger">
-                                        Delete
-                                    </button>
-
+                    <div id="variasiRepeater">
+                        <span data-repeater-list="">
+                            <div class="row mb-3" data-repeater-item>
+                                <div class="col-md-4">
+                                    <label for="" class="col-form-label">Attribute</label>
+                                    <input type="text" class="form-control" name="attribute">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="" class="col-form-label">Nilai</label>
+                                    <input type="text" class="form-control nilai" name="value">
+                                </div>
+                                {{-- <div class="col-md-4 d-flex align-bottom" style="background-color: red"> --}}
+                                <div class="col-md-4">
+                                    {{-- <div class="col-12"></div> --}}
+                                    <label for="" class="col-form-label">Delete</label>
+                                    <div class="col-12">
+                                        <button type="button" data-repeater-delete="" class="btn btn-sm btn-danger">
+                                            Delete
+                                        </button>
+    
+                                    </div>
                                 </div>
                             </div>
+                        </span>
+                        <div class="row mb-3">
+                            <div class="col-lg-6">
+                                <a href="javascript:;" data-repeater-create="" class="btn btn-sm btn-primary">
+                                    <i class="la la-plus"></i>Add
+                                </a>
+                            </div>
                         </div>
-                    </span>
-                    <div class="row mb-3">
-                        <div class="col-lg-6">
-                            <a href="javascript:;" data-repeater-create="" class="btn btn-sm btn-primary">
-                                <i class="la la-plus"></i>Add
-                            </a>
-                        </div>
+    
                     </div>
-
-                </div>
-
-                <div>Fullname = <span id="product_full_name"></span></div>
-                <div class="col-12">
-                    <h4>Details</h4>
-                </div>
-                <div class="row mb-3">
+    
+                    <div>Fullname = <span id="product_full_name"></span></div>
                     <div class="col-12">
-                        <label for="floatingDescription" class="col-form-label">Description</label>
-                        <textarea class="form-control" placeholder="Milo dari Nesle" id="floatingDescription" name="description" style="height: 100px"></textarea>
+                        <h4>Details</h4>
                     </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-6">
-                        <label for="" class="col-form-label">Buying Price</label>
-                        <input type="text" class="form-control" min="00.00" name="product_buying_price" id="product_buying_price" placeholder="10.00">
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label for="floatingDescription" class="col-form-label">Description</label>
+                            <textarea class="form-control" placeholder="Milo dari Nesle" id="floatingDescription" name="description" style="height: 100px"></textarea>
+                        </div>
                     </div>
-                    <div class="col-6">
-                        <label for="" class="col-form-label">Selling Price per Unit</label>
-                        <input type="text" class="form-control" min=00.00 name="product_selling_price" id="product_selling_price" placeholder="10.00">
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label for="" class="col-form-label">Buying Price</label>
+                            <input type="text" class="form-control" min="00.00" name="product_buying_price" id="product_buying_price" placeholder="10.00">
+                        </div>
+                        <div class="col-6">
+                            <label for="" class="col-form-label">Selling Price per Unit</label>
+                            <input type="text" class="form-control" min=00.00 name="product_selling_price" id="product_selling_price" placeholder="10.00">
+                        </div>
                     </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-6 col-12">
-                        <label for="">Stock</label>
-                        <input type="number" name="stock" class="form-control" value="yyyy-MM-ddThh:mm" id="stock" placeholder="">
-                    </div>
-                    <div class="col-md-6 col-12">
-                        <label for="floatingDate">Date Added</label>
-                        <input type="datetime-local" name="date_added" class="form-control" value="yyyy-MM-ddThh:mm" id="floatingDate" placeholder="Date">
+                    <div class="row mb-3">
+                        <div class="col-md-6 col-12">
+                            <label for="">Stock</label>
+                            <input type="number" name="stock" class="form-control" value="yyyy-MM-ddThh:mm" id="stock" placeholder="">
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <label for="floatingDate">Date Added</label>
+                            <input type="datetime-local" name="date_added" class="form-control" value="yyyy-MM-ddThh:mm" id="floatingDate" placeholder="Date">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -198,7 +201,6 @@
                         fullname = fullname + " - " +  $( this ).val();
                     })
                     
-                    // console.log(fullname)
                     $('#product_full_name').html($('#product_name').val() + fullname);
                 })
             });
@@ -206,17 +208,27 @@
             $('#addProductForm').submit(function(e){
                 e.preventDefault();
                 var data = $("#addProductForm").serializeArray()
-                console.table(data)
+                console.table($('#variasiRepeater').repeaterVal()[""])
+
+                $.ajax({
+                    url: "{{ route('product.variasi.add') }}",
+                    data: {
+                        'product' : data,
+                        'variasi' : (($('#variasiRepeater').repeaterVal()[""]==null)? "null" : $('#variasiRepeater').repeaterVal()[""])
+                    },
+                    type: 'POST',
+                    dataType: "JSON",
+                    success: function(data){
+                        console.log(data)
+                    }
+                })
+
             });
 
 
 
             $('#variasiRepeater').repeater({
                 initEmpty: true,
-
-                // defaultValues: {
-                //     'value': '',
-                // },
 
                 show: function (){
 
@@ -238,21 +250,18 @@
 
                 hide: function (deleteElement) {
                     $(this).slideUp(deleteElement);
-                    //* unfinished
+
                     // $('document').ready(function(){
-                    //     $(".nilai").change(function() {
-    
-                    //         var fullname = ""
-                    //         $(".nilai").each(function(){
-                    //             fullname = fullname + " - " +  $( this ).val();
-                    //         })
+                    //     var fullname = ""
+                    //     $(".nilai").each(function(){
+                    //         fullname = fullname + " - " +  $( this ).val();
+                    //         console.log("qwe")
         
-                    //         $('#product_full_name').html($('#product_name').val() + fullname);
-    
-                    //     });
+                    //     })
+                        
+                    //     $('#product_full_name').html($('#product_name').val() + fullname);
                     // })
-                },then: function(){
-                    alert("aweawe")
+
                 }
             });
             

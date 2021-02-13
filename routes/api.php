@@ -62,3 +62,7 @@ Route::get('/category', function (Request $request) {
     return response()->json($data);
 })->name('getCategory');
 
+Route::post('/product/variasi/add', function (Request $request) {
+    return response()->json($request);
+})->name('product.variasi.add');
+

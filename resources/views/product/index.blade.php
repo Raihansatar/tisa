@@ -19,6 +19,11 @@
     </div>
 
     <div class="d-flex align-items-center">
+        <button class="d-flex align-items-center btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#addVariantModal">
+            <i class="bi bi-plus-square"></i>
+            <span>Add Variant</span>
+        </button>
+
         <button class="d-flex align-items-center btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#addProductModal">
             <i class="bi bi-plus-square"></i>
             <span>Add</span>
@@ -53,6 +58,29 @@
 
 
 <!-- Modal -->
+<div class="modal fade" id="addVariantModal" tabindex="-1" aria-labelledby="addVariantModal" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Variant</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form class="row g-3" id="addVariantForm" action="" method="POST">
+            @csrf
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" >Submit</button>
+            </div>
+        </form>
+        
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
 <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModal" aria-hidden="true">
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
@@ -79,7 +107,7 @@
     
                         <div class="col-6">
                             <label for="" class="col-form-label col-12">Category</label>
-                            <select class="form-control col-12" style="width: 100%" name="product_category" id="category" aria-label="Brand">
+                            <select class="form-control col-12" style="width: 100%" name="product_category" id="category" aria-label="Brand" required>
                                 <option>Please Select</option>
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -90,7 +118,7 @@
                     <div class="row mb-3">
                         <div class="col-12">
                             <label for="floatingName" class="col-form-label">Product Name</label>
-                            <input type="text" class="form-control" name="product_name" id="product_name" placeholder="Milo Ais">
+                            <input type="text" class="form-control" name="product_name" id="product_name" placeholder="Milo Ais" required>
                         </div>
                     </div>
                     <div class="col-12">
@@ -101,21 +129,18 @@
                             <div class="row mb-3" data-repeater-item>
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">Attribute</label>
-                                    <input type="text" class="form-control" name="attribute">
+                                    <input type="text" class="form-control" name="attribute" required>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">Nilai</label>
-                                    <input type="text" class="form-control nilai" name="value">
+                                    <input type="text" class="form-control nilai" name="value" required>
                                 </div>
-                                {{-- <div class="col-md-4 d-flex align-bottom" style="background-color: red"> --}}
                                 <div class="col-md-4">
-                                    {{-- <div class="col-12"></div> --}}
                                     <label for="" class="col-form-label">Delete</label>
                                     <div class="col-12">
                                         <button type="button" data-repeater-delete="" class="btn btn-sm btn-danger">
                                             Delete
                                         </button>
-    
                                     </div>
                                 </div>
                             </div>
@@ -147,13 +172,13 @@
                         </div>
                         <div class="col-6">
                             <label for="" class="col-form-label">Selling Price per Unit</label>
-                            <input type="text" class="form-control" min=00.00 name="product_selling_price" id="product_selling_price" placeholder="10.00">
+                            <input type="text" class="form-control" min=00.00 name="product_selling_price" id="product_selling_price" placeholder="10.00" required>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-6 col-12">
                             <label for="">Stock</label>
-                            <input type="number" name="product_stock" class="form-control" id="stock" placeholder="">
+                            <input type="number" name="product_stock" class="form-control" id="stock" placeholder="" required>
                         </div>
                         <div class="col-md-6 col-12">
                             <label for="floatingDate">Date Added</label>
@@ -170,7 +195,7 @@
         
       </div>
     </div>
-  </div>
+</div>
 
 @endsection
 

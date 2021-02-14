@@ -68,10 +68,99 @@
         <form class="row g-3" id="addVariantForm" action="" method="POST">
             @csrf
             <div class="modal-body">
+                <div class="px-4">
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label for="product_variant_name" class="col-form-label">Product Name</label>
+                            <select class="form-control col-12" style="width: 100%" name="product_variant_name" id="product_variant_name" aria-label="Brand" required>
+                                <option>Please Select</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label class="col-form-label col-12" for="">Brand</label>
+                            <select class="form-control col-12" style="width: 100%" name="product_variant_brand" id="product_variant_brand" aria-label="Brand" disabled>
+                                <option>Please Select</option>
+                            </select>
+                        </div>
+    
+                        <div class="col-6">
+                            <label for="" class="col-form-label col-12">Category</label>
+                            <select class="form-control col-12" style="width: 100%" name="product_variant_category" id="product_variant_category" aria-label="Brand" required disabled>
+                                <option>Please Select</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <h4>Variasi</h4>
+                    </div>
+                    <div id="variasiRepeater">
+                        <span data-repeater-list="">
+                            <div class="row mb-3" data-repeater-item>
+                                <div class="col-md-4">
+                                    <label for="" class="col-form-label">Attribute</label>
+                                    <input type="text" class="form-control" name="product_variant_attribute" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="" class="col-form-label">Nilai</label>
+                                    <input type="text" class="form-control nilai" name="product_variant_value" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="" class="col-form-label">Delete</label>
+                                    <div class="col-12">
+                                        <button type="button" data-repeater-delete="" class="btn btn-sm btn-danger">
+                                            Delete
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </span>
+                        <div class="row mb-3">
+                            <div class="col-lg-6">
+                                <a href="javascript:;" data-repeater-create="" class="btn btn-sm btn-primary">
+                                    <i class="la la-plus"></i>Add
+                                </a>
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                    <div>Fullname = <span id="product_variant_full_name"></span></div>
+                    <div class="col-12">
+                        <h4>Details</h4>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label for="product_variant_description" class="col-form-label">Description</label>
+                            <textarea class="form-control" placeholder="Milo dari Nesle" id="product_variant_description" name="product_variant_description" style="height: 100px"></textarea>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label for="" class="col-form-label">Buying Price</label>
+                            <input type="text" class="form-control" min="00.00" name="product_variant_buying_price" id="product_variant_buying_price" placeholder="10.00">
+                        </div>
+                        <div class="col-6">
+                            <label for="" class="col-form-label">Selling Price per Unit</label>
+                            <input type="text" class="form-control" min=00.00 name="product_variant_selling_price" id="product_variant_selling_price" placeholder="10.00" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6 col-12">
+                            <label for="">Stock</label>
+                            <input type="number" name="product_variant_stock" class="form-control" id="product_variant_stock" placeholder="" required>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <label for="product_variant_date">Date Added</label>
+                            <input type="datetime-local" name="product_variant_date_added" class="form-control" value="" id="product_variant_date" placeholder="Date">
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" >Submit</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </form>
         
@@ -322,6 +411,25 @@
                 }
             });
             
+
+            $('#product_variant_name').select2({
+                dropdownParent: $('#addVariantModal'),
+                placeholder: 'Select an option',
+                "ajax": {
+                    url: '{{ Route('product.api.getProduct') }}',
+                    dataType: 'json',
+                    processResults: function (data) {
+                        return {
+                            results:  $.map(data, function (item) {
+                                return {
+                                    text: (item.brand == null)? item.name + " - " + "No Brand" :  item.name + " - " +  item.brand.name,
+                                    id: item.id
+                                }
+                            })
+                        };
+                    },
+                }
+            });
 
             $('#brand').select2({
                 dropdownParent: $('#addProductModal'),

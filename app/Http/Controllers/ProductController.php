@@ -112,4 +112,29 @@ class ProductController extends Controller
         }
         
     }
+    
+    public function getProduct(Request $request)
+    {
+        $data = [];
+            
+        try{
+            if($request->has('q')){
+                $search = $request->q;
+                $data = Product::select("id","name", "brand")
+                        ->with('brand:name')
+                        ->where('name','LIKE',"%$search%")
+                        ->get();
+            }else{
+                $data = Product::select("id","name", "brand")
+                        ->with('brand:name')
+                        ->get();
+            }
+    
+        }catch(Exception $e){
+            return $e;
+        }
+    
+    
+        return response()->json($data);
+    }
 }

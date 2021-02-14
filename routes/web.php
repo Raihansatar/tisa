@@ -28,50 +28,60 @@ Route::get('/logout', [LoginController::class, 'logoutProcess'])->name('logout.p
 Route::post('/login', [LoginController::class, 'loginProcess'])->name('login.process');
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/product', [ProductController::class, 'index'])->name('product.index');
-    Route::post('/product', [ProductController::class, 'createProduct'])->name('product.create');
-    Route::get('/product/datatable', [ProductController::class, 'index_datatable'])->name('product.index.datatable');
-    Route::post('/product/variasi/add', [ProductController::class, 'createProduct'] )->name('product.variasi.add');
+    
+    
 
-    Route::get('/brand', function (Request $request) {
-        $data = [];
-    
-        try{
-            if($request->has('q')){
-                $search = $request->q;
-                $data =ProductBrand::select("id","name")
-                        ->where('name','LIKE',"%$search%")
-                        ->get();
-            }else{
-                $data = ProductBrand::select("id", "name")->get();
-            }
-    
-        }catch(Exception $e){
-            return $e;
-        }
-    
-    
-        return response()->json($data);
-    })->name('getBrand');
-    
-    Route::get('/category', function (Request $request) {
-        $data = [];
-    
-        try{
-            if($request->has('q')){
-                $search = $request->q;
-                $data =ProductCategory::select("id","name")
-                        ->where('name','LIKE',"%$search%")
-                        ->get();
-            }else{
-                $data = ProductCategory::select("id", "name")->get();
-            }
+    Route::prefix('product')->group(function () {
+        Route::get('/', [ProductController::class, 'index'])->name('product.index');
+        Route::post('/', [ProductController::class, 'createProduct'])->name('product.create');
+        Route::get('/datatable', [ProductController::class, 'index_datatable'])->name('product.index.datatable');
+        Route::post('/variasi/add', [ProductController::class, 'createProduct'] )->name('product.variasi.add');
+        
+        Route::prefix('api')->group(function () {
+            Route::get('/getProduct', [ProductController::class, 'getProduct'])->name('product.api.getProduct');
+            Route::get('/brand', function (Request $request) {
+                $data = [];
             
-        }catch(Exception $e){
-            return $e;
-        }
+                try{
+                    if($request->has('q')){
+                        $search = $request->q;
+                        $data =ProductBrand::select("id","name")
+                                ->where('name','LIKE',"%$search%")
+                                ->get();
+                    }else{
+                        $data = ProductBrand::select("id", "name")->get();
+                    }
+            
+                }catch(Exception $e){
+                    return $e;
+                }
+            
+            
+                return response()->json($data);
+            })->name('getBrand');
+            
+            Route::get('/category', function (Request $request) {
+                $data = [];
+            
+                try{
+                    if($request->has('q')){
+                        $search = $request->q;
+                        $data =ProductCategory::select("id","name")
+                                ->where('name','LIKE',"%$search%")
+                                ->get();
+                    }else{
+                        $data = ProductCategory::select("id", "name")->get();
+                    }
+                    
+                }catch(Exception $e){
+                    return $e;
+                }
+            
+            
+                return response()->json($data);
+            })->name('getCategory');
+        });
     
+    });
     
-        return response()->json($data);
-    })->name('getCategory');
 });

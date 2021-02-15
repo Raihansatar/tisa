@@ -144,20 +144,14 @@ class ProductController extends Controller
             
         try{
             if($request->has('id')){
-                $search = $request->data;
+                $search = $request->id;
                 $data = Product::
-                        // with(['brand', 'category'])
-                        where('id', $search)
-                        ->get();
+                        where('id', $search)->
+                        with(['brand', 'category'])
+                        ->get()
+                        ->first();
             }else{
-                // $data = Product::select("id","name", "brand")
-                //         ->with('brand:name')
-                //         ->get();
-                $search = $request->data;
-                $data = Product::
-                // with(['brand', 'category'])
-                        where('id', $search)
-                        ->get();
+                $data = "Error, no id detected";
             }
     
             return response()->json($data);

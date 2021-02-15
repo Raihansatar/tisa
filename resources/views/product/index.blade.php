@@ -18,11 +18,13 @@
         </div>
     </div>
 
-    <div class="d-flex align-items-center">
-        <button class="d-flex align-items-center btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#addVariantModal">
-            <i class="bi bi-plus-square"></i>
-            <span>Add Variant</span>
-        </button>
+    <div class="d-flex align-items-center justify-content-between">
+        <div class="pe-4">
+            <button class="d-flex align-items-center btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addVariantModal">
+                <i class="bi bi-plus-square"></i>
+                <span>Add Variant</span>
+            </button>
+        </div>
 
         <button class="d-flex align-items-center btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#addProductModal">
             <i class="bi bi-plus-square"></i>
@@ -410,6 +412,23 @@
 
                 }
             });
+
+            $('#product_variant_name').change(function(){
+                $.ajax({
+                    url: '{{ Route('product.api.getProductDetails') }}',
+                    data: {
+                        id:  $('#product_variant_name').val()
+                    },
+                    dataType: 'json',
+                    success: function(data){
+                        console.log(data)
+                    },
+                    processResults: function (data) {
+                        console.log(data);
+                    },
+                })
+                
+            })
             
 
             $('#product_variant_name').select2({
@@ -422,7 +441,7 @@
                         return {
                             results:  $.map(data, function (item) {
                                 return {
-                                    text: (item.brand == null)? item.name + " - " + "No Brand" :  item.name + " - " +  item.brand.name,
+                                    text: item.name + " - " + ( (item.brand == null)? "No Brand" :  item.brand.name ) ,
                                     id: item.id
                                 }
                             })

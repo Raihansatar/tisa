@@ -137,4 +137,36 @@ class ProductController extends Controller
     
         return response()->json($data);
     }
+
+    public function getProductDetails(Request $request)
+    {
+        $data = [];
+            
+        try{
+            if($request->has('id')){
+                $search = $request->data;
+                $data = Product::
+                        // with(['brand', 'category'])
+                        where('id', $search)
+                        ->get();
+            }else{
+                // $data = Product::select("id","name", "brand")
+                //         ->with('brand:name')
+                //         ->get();
+                $search = $request->data;
+                $data = Product::
+                // with(['brand', 'category'])
+                        where('id', $search)
+                        ->get();
+            }
+    
+            return response()->json($data);
+        }catch(Exception $e){
+            return $e;
+            return response()->json($e);
+
+        }
+    
+    
+    }
 }

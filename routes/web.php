@@ -39,6 +39,7 @@ Route::group(['middleware' => ['auth']], function () {
         
         Route::prefix('api')->group(function () {
             Route::get('/getProduct', [ProductController::class, 'getProduct'])->name('product.api.getProduct');
+            Route::get('/getProductDetails', [ProductController::class, 'getProductDetails'])->name('product.api.getProductDetails');
             Route::get('/brand', function (Request $request) {
                 $data = [];
             

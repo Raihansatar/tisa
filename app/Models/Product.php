@@ -30,6 +30,6 @@ class Product extends Model
 
     public function brand()
     {
-        return $this->belongsTo(ProductBrand::class, 'brand');
+        return $this->belongsTo(ProductBrand::class, 'brand', 'id');
     }
 }

@@ -421,9 +421,17 @@
                     dataType: 'json',
                     success: function(data){
                         console.log(data)
-                        $('#product_variant_brand_option').html(data.brand.name);
-                        alert(data.brand.name)
-                        $('#product_variant_brand_option').val(data.brand.id);
+                        if(data.brand != null){
+                            $('#product_variant_brand_option').html(data.brand.name);
+                            $('#product_variant_brand_option').val(data.brand.id);
+                        }else{
+                            $('#product_variant_brand_option').html('');
+                            $('#product_variant_brand_option').val('');
+                        }
+                        if(data.brand != null){
+                            $('#product_variant_category_option').html(data.category.name);
+                            $('#product_variant_category_option').val(data.category.id);
+                        }
                     },
                     processResults: function (data) {
                         
@@ -441,10 +449,11 @@
                     url: '{{ Route('product.api.getProduct') }}',
                     dataType: 'json',
                     processResults: function (data) {
+                        console.log(data)
                         return {
                             results:  $.map(data, function (item) {
                                 return {
-                                    text: item.name + " - " + ( (item.brand == null)? "No Brand" :  item.brand.name ) ,
+                                    text: item.name + " - " + ( (item.brand != null)?  item.brand.name : "No Brand" ) ,
                                     id: item.id
                                 }
                             })

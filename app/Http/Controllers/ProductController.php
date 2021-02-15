@@ -120,13 +120,13 @@ class ProductController extends Controller
         try{
             if($request->has('q')){
                 $search = $request->q;
-                $data = Product::select("id","name", "brand")
-                        ->with('brand:name')
-                        ->where('name','LIKE',"%$search%")
+                $data = Product::select("id", "name", "brand")
+                        ->with('brand:id,name')
+                        ->orwhere('name','LIKE',"%$search%")
                         ->get();
             }else{
-                $data = Product::select("id","name", "brand")
-                        ->with('brand:name')
+                $data = Product::select("id", "name", "brand")
+                        ->with('brand:id,name')
                         ->get();
             }
     

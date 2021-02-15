@@ -15,7 +15,7 @@
                         <a class="nav-link" aria-current="page" href="#">Shop</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="#">Debt</a>
+                        <a class="nav-link" aria-current="page" href="{{ Route('debt.index') }}">Debt</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="#">Report</a>

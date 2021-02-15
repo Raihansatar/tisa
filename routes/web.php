@@ -29,7 +29,11 @@ Route::post('/login', [LoginController::class, 'loginProcess'])->name('login.pro
 
 Route::group(['middleware' => ['auth']], function () {
     
-    
+    Route::prefix('debt')->group(function () {
+        Route::get('/', function () {
+            return view('debt.index');
+        })->name('debt.index');
+    });
 
     Route::prefix('product')->group(function () {
         Route::get('/', [ProductController::class, 'index'])->name('product.index');

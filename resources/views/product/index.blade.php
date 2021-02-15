@@ -75,7 +75,6 @@
                         <div class="col-12">
                             <label for="product_variant_name" class="col-form-label">Product Name</label>
                             <select class="form-control col-12" style="width: 100%" name="product_variant_name" id="product_variant_name" aria-label="Brand" required>
-                                <option>Please Select</option>
                             </select>
                         </div>
                     </div>
@@ -83,14 +82,14 @@
                         <div class="col-6">
                             <label class="col-form-label col-12" for="">Brand</label>
                             <select class="form-control col-12" style="width: 100%" name="product_variant_brand" id="product_variant_brand" aria-label="Brand" disabled>
-                                <option>Please Select</option>
+                                <option value="" id="product_variant_brand_option"></option>
                             </select>
                         </div>
     
                         <div class="col-6">
                             <label for="" class="col-form-label col-12">Category</label>
                             <select class="form-control col-12" style="width: 100%" name="product_variant_category" id="product_variant_category" aria-label="Brand" required disabled>
-                                <option>Please Select</option>
+                                <option value="" id="product_variant_category_option"></option>
                             </select>
                         </div>
                     </div>
@@ -422,8 +421,12 @@
                     dataType: 'json',
                     success: function(data){
                         console.log(data)
+                        $('#product_variant_brand_option').html(data.brand.name);
+                        alert(data.brand.name)
+                        $('#product_variant_brand_option').val(data.brand.id);
                     },
                     processResults: function (data) {
+                        
                         console.log(data);
                     },
                 })

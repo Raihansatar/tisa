@@ -32,10 +32,9 @@
                 <table class="table table-hover" id="sales_list_table">
                     <thead class=""">
                         <th>Product Name</th>
-                        <th>Sales</th>
                         <th>Unit Sales</th>
                         <th>Price Per Unit</th>
-                        <th>Total</th>
+                        <th>Total Sales</th>
                         <th>Sales Date</th>
                         <th>Action</th>
                     </thead>
@@ -48,6 +47,21 @@
 
 @endsection
 
+@push('custom-css')
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+@endpush
+
 @push('custom-js')
-    
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.js"></script>
+    <script src="{{ asset('assets/plugins/moment-with-locales.js') }}" crossorigin="anonymous"></script>
+    <script src="{{ asset('assets/plugins/jquery.repeater.js') }}" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        $('document').ready(function(){
+            $('#sales_list_table').DataTable();
+        })
+
+    </script>
 @endpush

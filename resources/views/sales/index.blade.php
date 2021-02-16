@@ -15,7 +15,7 @@
         </div>
     
         <div class="d-flex align-items-center justify-content-between">
-            <button class="d-flex align-items-center btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#addProductModal">
+            <button class="d-flex align-items-center btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#addSalesModal">
                 <i class="bi bi-plus-square"></i>
                 <span>Add Sales</span>
             </button>
@@ -45,6 +45,57 @@
         </div>
     <div/>
 
+<!-- Modal -->
+<div class="modal fade" id="addSalesModal" tabindex="-1" aria-labelledby="addSalesModal" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Sales</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form class="row g-3" id="addSalesForm" action="" method="POST">
+            @csrf
+            <div class="modal-body">
+                <div class="px-4">
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label for="floatingName" class="col-form-label">Product Name</label>
+                            <select class="form-control col-12" style="width: 100%" name="product_name" id="product_name" required>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label for="" class="col-form-label">Unit Sales</label>
+                            <input type="number" class="form-control" name="unit_sales" id="unit_sales" placeholder="10">
+                        </div>
+                        <div class="col-6">
+                            <label for="" class="col-form-label">Price per Unit</label>
+                            <input type="text" class="form-control" min=00.00 name="price_per_unit" id="price_per_unit" placeholder="10.00" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6 col-12">
+                            <label for="">Total Sales</label>
+                            <input type="text" class="form-control" min=00.00 name="total_sales" id="total_sales" placeholder="10.00" required>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <label for="floatingDate">Sales Date</label>
+                            <input type="datetime-local" name="sales_date" class="form-control" value="" id="floatingDate" placeholder="Date">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" >Submit</button>
+            </div>
+        </form>
+        
+      </div>
+    </div>
+</div>
 @endsection
 
 @push('custom-css')
@@ -61,6 +112,32 @@
     <script>
         $('document').ready(function(){
             $('#sales_list_table').DataTable();
+
+            $('#product_name').select2({
+                dropdownParent: $('#addSalesModal'),
+                placeholder: 'Select an option',
+                "ajax": {
+                    url: '{{ Route('product.api.getProduct') }}',
+                    dataType: 'json',
+                    processResults: function (data) {
+                        data.push({id: "1", name: "Untracked", brand: {name: " Sales not track"}})
+
+                        return {
+                            results:  $.map(data, function (item) {
+                                
+                                return {
+                                    text: item.name + " - " + ( (item.brand != null)?  item.brand.name : "No Brand" ) ,
+                                    id: item.id
+                                }
+                            })
+
+                        };
+                        
+
+                    },
+                }
+            });
+
         })
 
     </script>

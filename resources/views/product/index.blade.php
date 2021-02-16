@@ -495,7 +495,6 @@
                         if(data!=null){
                             var num = 1;
                             data.forEach((element) => {
-                                // console.table(JSON.parse(element.variant))
                                 $('#available_variant').append(num + '.  ' )
                                 JSON.parse(element.variant).forEach(element => {
                                     $('#available_variant').append(element.attribute + " : " + element.value + ". &nbsp; &nbsp;&nbsp; ")

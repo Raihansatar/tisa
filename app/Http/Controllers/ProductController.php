@@ -122,7 +122,7 @@ class ProductController extends Controller
                 $search = $request->q;
                 $data = Product::select("id", "name", "brand")
                         ->with('brand:id,name')
-                        ->orwhere('name','LIKE',"%$search%")
+                        ->where('name','LIKE',"%$search%")
                         ->get();
             }else{
                 $data = Product::select("id", "name", "brand")
@@ -148,10 +148,12 @@ class ProductController extends Controller
                 $data = ProductVariant::
                         select('id', 'product_id', 'variant')
                         ->where('product_id', $search)
-                        // ->with('product_variant:product_id,variant')
                         ->get();
             }else{
-                $data = "Error, no id detected";
+                $data = ProductVariant::
+                        select('id', 'product_id', 'variant')
+                        // ->
+                        ->get();
             }
     
             return response()->json($data);
@@ -201,5 +203,10 @@ class ProductController extends Controller
         }catch(Exception $e){
             return response()->json($e);
         }
+    }
+
+    public function getAllProductWithVariant(Request $request)
+    {
+        
     }
 }

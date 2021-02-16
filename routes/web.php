@@ -38,6 +38,10 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::prefix('sales')->group(function () {
         Route::get('/', [SalesController::class, 'index'])->name('sales.index');
+        
+        Route::prefix('api')->group(function () {
+            Route::get('/', [SalesController::class, 'getVariantProduct'])->name('sales.api.getVariantProduct');
+        });
     });
 
     Route::prefix('product')->group(function () {

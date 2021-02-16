@@ -68,17 +68,17 @@
                     <div class="row mb-3">
                         <div class="col-6">
                             <label for="" class="col-form-label">Unit Sales</label>
-                            <input type="number" class="form-control" name="unit_sales" id="unit_sales" placeholder="10">
+                            <input type="number" class="form-control" name="unit_sales" id="unit_sales" placeholder="">
                         </div>
                         <div class="col-6">
                             <label for="" class="col-form-label">Price per Unit</label>
-                            <input type="text" class="form-control" min=00.00 name="price_per_unit" id="price_per_unit" placeholder="10.00" required>
+                            <input type="text" class="form-control" min=00.00 name="price_per_unit" id="price_per_unit" placeholder="" disabled>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-6 col-12">
                             <label for="">Total Sales</label>
-                            <input type="text" class="form-control" min=00.00 name="total_sales" id="total_sales" placeholder="10.00" required>
+                            <input type="text" class="form-control" onchange="setTwoNumberDecimal" min="0.00" max="99999.99" step="0.01" name="total_sales" id="total_sales" placeholder="" required>
                         </div>
                         <div class="col-md-6 col-12">
                             <label for="floatingDate">Sales Date</label>
@@ -113,26 +113,42 @@
         $('document').ready(function(){
             $('#sales_list_table').DataTable();
 
+            function setTwoNumberDecimal(event) {
+                this.value = parseFloat(this.value).toFixed(2);
+            }
+
             $('#product_name').select2({
                 dropdownParent: $('#addSalesModal'),
                 placeholder: 'Select an option',
                 "ajax": {
-                    url: '{{ Route('product.api.getProduct') }}',
+                    url: '{{ Route('sales.api.getVariantProduct') }}',
                     dataType: 'json',
                     processResults: function (data) {
-                        data.push({id: "null", name: "Untracked", brand: {name: " Sales not track"}})
+                        console.log(data)
+                        // data.push({id: "null", name: "Untracked", brand: {name: " Sales not track"}})
                         return {
                             results:  $.map(data, function (item) {
-                                
+                                var text = item.name;
+                                JSON.parse(item.variant).forEach(element => {
+                                    text = text + " - " + element.value
+                                })
                                 return {
-                                    text: item.name + " - " + ( (item.brand != null)?  item.brand.name : "No Brand" ) ,
-                                    id: item.id
+                                    text: text, 
+                                    id: item.id,
+                                    custom: item.selling_price_per_unit
                                 }
                             })
                         };
                     },
                 }
             });
+            $('#product_name').change(function(){
+                $('#price_per_unit').val($('#product_name').select2('data')[0].custom)
+            })
+
+            $('#unit_sales').change(function(){
+                $('#total_sales').val( $('#price_per_unit').val() *  $('#unit_sales').val())
+            })
 
             $('#addSalesForm').submit(function(e){
                 e.preventDefault();

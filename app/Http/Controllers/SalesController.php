@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\ProductVariant;
+use App\Models\Transaction;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class SalesController extends Controller
@@ -43,6 +45,11 @@ class SalesController extends Controller
 
     public function createSales(Request $request)
     {
+        // Transaction::create([
+        //     'user_id' => Auth::id(),
+        //     'product_id' => $request->product_name,
+        //     ''
+        // ]);
         return response()->json($request);
     }
 }

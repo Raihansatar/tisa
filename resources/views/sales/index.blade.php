@@ -154,7 +154,7 @@
 
                 var data = $('#addSalesForm').serialize()
                 console.table(data);
-
+                data = data + '&name=' + $('#product_name').select2('data')[0].text
                 $.ajax({
                     url: '{{ route("sales.api.createSales") }}',
                     dataType: 'JSON',

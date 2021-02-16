@@ -96,6 +96,7 @@
                     <div class="col-12">
                         <h4>Variasi</h4>
                     </div>
+                    <span id="available_variant"></span>
                     <div id="variasiRepeater">
                         <span data-repeater-list="">
                             <div class="row mb-3" data-repeater-item>
@@ -418,9 +419,10 @@
                     data: {
                         id:  $('#product_variant_name').val()
                     },
+                    // available_variant
                     dataType: 'json',
                     success: function(data){
-                        console.log(data)
+                        // available_variant
                         if(data.brand != null){
                             $('#product_variant_brand_option').html(data.brand.name);
                             $('#product_variant_brand_option').val(data.brand.id);
@@ -432,6 +434,8 @@
                             $('#product_variant_category_option').html(data.category.name);
                             $('#product_variant_category_option').val(data.category.id);
                         }
+
+                        $('#available_variant').html();
                     },
                     processResults: function (data) {
                         

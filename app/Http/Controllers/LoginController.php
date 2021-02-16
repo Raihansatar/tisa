@@ -23,7 +23,7 @@ class LoginController extends Controller
         if(Auth::attempt(['username' => $request->username, 'password' => $request->password])){
             return redirect()->route('index');
         }else{
-            return redirect()->route('login.index')->with('error', 'Wrong Password Enterred');
+            return redirect()->route('login')->with('error', 'Wrong Password Enterred');
         }
     }
 }

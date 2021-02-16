@@ -147,7 +147,7 @@ class ProductController extends Controller
                 $search = $request->id;
                 $data = Product::
                         where('id', $search)
-                        ->with(['brand:id,name', 'category:id,name'])
+                        ->with(['brand:id,name', 'category:id,name', 'product_variant:product_id,variant'])
                         ->get()
                         ->first();
             }else{

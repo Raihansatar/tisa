@@ -96,7 +96,7 @@
                     <div class="col-12">
                         <h4>Variasi</h4>
                     </div>
-                    <span id="available_variant"></span>
+                    <pre id="available_variant"></pre>
                     <div id="variasiRepeater">
                         <span data-repeater-list="">
                             <div class="row mb-3" data-repeater-item>
@@ -422,7 +422,9 @@
                     // available_variant
                     dataType: 'json',
                     success: function(data){
-                        // available_variant
+
+                        $('#available_variant').html('')
+                        // console.log(data)
                         if(data.brand != null){
                             $('#product_variant_brand_option').html(data.brand.name);
                             $('#product_variant_brand_option').val(data.brand.id);
@@ -430,16 +432,25 @@
                             $('#product_variant_brand_option').html('');
                             $('#product_variant_brand_option').val('');
                         }
-                        if(data.brand != null){
+                        if(data.category != null){
                             $('#product_variant_category_option').html(data.category.name);
                             $('#product_variant_category_option').val(data.category.id);
                         }
 
-                        $('#available_variant').html();
-                    },
-                    processResults: function (data) {
-                        
-                        console.log(data);
+                        if(data.product_variant!=null){
+                            var num = 1;
+                            data.product_variant.forEach((element) => {
+                                // console.table(JSON.parse(element.variant))
+                                $('#available_variant').append(num + '.  ' )
+                                JSON.parse(element.variant).forEach(element => {
+                                    $('#available_variant').append(element.attribute + " : " + element.value + ". &nbsp; &nbsp;&nbsp; ")
+                                })
+                                $('#available_variant').append('<br>')
+                                num++;
+                            });
+                        }else{
+                            $('#available_variant').append('No Variant')
+                        }
                     },
                 })
                 

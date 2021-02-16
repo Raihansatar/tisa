@@ -138,6 +138,30 @@ class ProductController extends Controller
         return response()->json($data);
     }
 
+    public function getProductVariant(Request $request)
+    {
+        $data = [];
+            
+        try{
+            if($request->has('id')){
+                $search = $request->id;
+                $data = ProductVariant::
+                        select('id', 'product_id', 'variant')
+                        ->where('product_id', $search)
+                        // ->with('product_variant:product_id,variant')
+                        ->get();
+            }else{
+                $data = "Error, no id detected";
+            }
+    
+            return response()->json($data);
+        }catch(Exception $e){
+            return $e;
+            return response()->json($e);
+
+        }
+    }
+
     public function getProductDetails(Request $request)
     {
         $data = [];

@@ -97,7 +97,7 @@
                         <h4>Variasi</h4>
                     </div>
                     <pre id="available_variant"></pre>
-                    <div id="variasiRepeater">
+                    <div id="variasiOnlyRepeater">
                         <span data-repeater-list="">
                             <div class="row mb-3" data-repeater-item>
                                 <div class="col-md-4">
@@ -127,8 +127,7 @@
                         </div>
     
                     </div>
-    
-                    <div>Fullname = <span id="product_variant_full_name"></span></div>
+
                     <div class="col-12">
                         <h4>Details</h4>
                     </div>
@@ -373,11 +372,12 @@
 
             });
 
-
-
             $('#variasiRepeater').repeater({
-                initEmpty: true,
-
+                initEmpty: false,
+                isFirstItemUndeletable: true,
+                defaultValues: {
+                    'text-input': 'foo'
+                },
                 show: function (){
 
                     $(".nilai").change(function() {
@@ -399,19 +399,120 @@
                 hide: function (deleteElement) {
                     $(this).slideUp(deleteElement);
 
-                    // $('document').ready(function(){
-                    //     var fullname = ""
-                    //     $(".nilai").each(function(){
-                    //         fullname = fullname + " - " +  $( this ).val();
-                    //         console.log("qwe")
-        
-                    //     })
-                        
-                    //     $('#product_full_name').html($('#product_name').val() + fullname);
-                    // })
-
                 }
             });
+
+            $('#brand').select2({
+                dropdownParent: $('#addProductModal'),
+                placeholder: 'Select an option',
+                "ajax": {
+                    url: '{{ Route('getBrand') }}',
+                    dataType: 'json',
+                    processResults: function (data) {
+                        return {
+                            results:  $.map(data, function (item) {
+                                return {
+                                    text: item.name,
+                                    id: item.id
+                                }
+                            })
+                        };
+                    },
+                }
+            });
+            
+            $('#category').select2({
+                dropdownParent: $('#addProductModal'),
+                placeholder: 'Select an option',
+                "ajax": {
+                    url: '{{ Route('getCategory') }}',
+                    dataType: 'json',
+                    processResults: function (data) {
+                        return {
+                            results:  $.map(data, function (item) {
+                                return {
+                                    text: item.name,
+                                    id: item.id
+                                }
+                            })
+                        };
+                    },
+                }
+            });
+
+            //* Product variant add
+            $('#variasiOnlyRepeater').repeater({
+                initEmpty: true,
+
+                show: function (){
+
+                    $(this).slideDown();
+                    
+                },
+
+                hide: function (deleteElement) {
+                    $(this).slideUp(deleteElement);
+                }
+            });
+
+            // $('#addProductForm').submit(function(e){
+            //     e.preventDefault();
+            //     var formData = new FormData();
+
+            //     formData.append('product_name', $('input[name=product_name]').val());
+            //     formData.append('product_description', $('textarea[name=product_description]').val());
+            //     formData.append('product_brand', $('select[name=product_brand]').val());
+            //     formData.append('product_category', $('select[name=product_category]').val());
+            //     formData.append('product_variasi', (($('#variasiRepeater').repeaterVal()[""] == null)? "null" : JSON.stringify($('#variasiRepeater').repeaterVal()[""])));
+            //     formData.append('product_buying_price', $('input[name=product_buying_price]').val());
+            //     formData.append('product_selling_price', $('input[name=product_selling_price]').val());
+            //     formData.append('product_date_added', $('input[name=product_date_added]').val());
+            //     formData.append('product_stock', $('input[name=product_stock]').val()); 
+
+            //     $.ajax({
+            //         url: "{{ route('product.variasi.add') }}",
+            //         data: formData,
+            //         contentType: false,
+            //         processData: false,
+            //         type: 'POST',
+            //         dataType: "JSON",
+            //         success: function(data){
+            //             console.log(data)
+            //             table.draw();
+            //         }
+            //     })
+
+            // });
+            
+            function showVariant(){
+                $.ajax({
+                    url: '{{ Route('product.api.getProductVariant') }}',
+                    data: {
+                        id:  $('#product_variant_name').val()
+                    },
+                    // available_variant
+                    dataType: 'json',
+                    success: function(data){
+                        $('#available_variant').html('')
+                        if(data!=null){
+                            var num = 1;
+                            data.forEach((element) => {
+                                // console.table(JSON.parse(element.variant))
+                                $('#available_variant').append(num + '.  ' )
+                                JSON.parse(element.variant).forEach(element => {
+                                    $('#available_variant').append(element.attribute + " : " + element.value + ". &nbsp; &nbsp;&nbsp; ")
+                                })
+                                $('#available_variant').append('<br>')
+                                num++;
+                            });
+                        }else{
+                            $('#available_variant').append('No Variant')
+                        }
+                    }
+                })
+            }
+
+                
 
             $('#product_variant_name').change(function(){
                 $.ajax({
@@ -423,7 +524,6 @@
                     dataType: 'json',
                     success: function(data){
 
-                        $('#available_variant').html('')
                         // console.log(data)
                         if(data.brand != null){
                             $('#product_variant_brand_option').html(data.brand.name);
@@ -436,21 +536,9 @@
                             $('#product_variant_category_option').html(data.category.name);
                             $('#product_variant_category_option').val(data.category.id);
                         }
-
-                        if(data.product_variant!=null){
-                            var num = 1;
-                            data.product_variant.forEach((element) => {
-                                // console.table(JSON.parse(element.variant))
-                                $('#available_variant').append(num + '.  ' )
-                                JSON.parse(element.variant).forEach(element => {
-                                    $('#available_variant').append(element.attribute + " : " + element.value + ". &nbsp; &nbsp;&nbsp; ")
-                                })
-                                $('#available_variant').append('<br>')
-                                num++;
-                            });
-                        }else{
-                            $('#available_variant').append('No Variant')
-                        }
+                        
+                        showVariant();
+                        
                     },
                 })
                 
@@ -477,42 +565,7 @@
                 }
             });
 
-            $('#brand').select2({
-                dropdownParent: $('#addProductModal'),
-                placeholder: 'Select an option',
-                "ajax": {
-                    url: '{{ Route('getBrand') }}',
-                    dataType: 'json',
-                    processResults: function (data) {
-                        return {
-                            results:  $.map(data, function (item) {
-                                return {
-                                    text: item.name,
-                                    id: item.id
-                                }
-                            })
-                        };
-                    },
-                }
-            });
-            $('#category').select2({
-                dropdownParent: $('#addProductModal'),
-                placeholder: 'Select an option',
-                "ajax": {
-                    url: '{{ Route('getCategory') }}',
-                    dataType: 'json',
-                    processResults: function (data) {
-                        return {
-                            results:  $.map(data, function (item) {
-                                return {
-                                    text: item.name,
-                                    id: item.id
-                                }
-                            })
-                        };
-                    },
-                }
-            });
+
         });
     </script>
 @endpush

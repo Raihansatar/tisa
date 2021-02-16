@@ -40,4 +40,9 @@ class SalesController extends Controller
     
         return response()->json($data);
     }
+
+    public function createSales(Request $request)
+    {
+        return response()->json($request);
+    }
 }

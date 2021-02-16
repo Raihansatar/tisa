@@ -41,6 +41,7 @@ Route::group(['middleware' => ['auth']], function () {
         
         Route::prefix('api')->group(function () {
             Route::get('/', [SalesController::class, 'getVariantProduct'])->name('sales.api.getVariantProduct');
+            Route::post('/', [SalesController::class, 'createSales'])->name('sales.api.createSales');
         });
     });
 

@@ -15,6 +15,7 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
             $table->unsignedBigInteger('product_id')->nullable();
             $table->string('product_name')->default('Untracked Product');
             $table->unsignedBigInteger('unit_sales');

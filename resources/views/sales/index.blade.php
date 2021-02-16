@@ -125,7 +125,6 @@
                     dataType: 'json',
                     processResults: function (data) {
                         console.log(data)
-                        // data.push({id: "null", name: "Untracked", brand: {name: " Sales not track"}})
                         return {
                             results:  $.map(data, function (item) {
                                 var text = item.name;
@@ -155,6 +154,16 @@
 
                 var data = $('#addSalesForm').serialize()
                 console.table(data);
+
+                $.ajax({
+                    url: '{{ route("sales.api.createSales") }}',
+                    dataType: 'JSON',
+                    data: data,
+                    type: 'POST',
+                    success: function(data){
+                        console.log(data)
+                    }
+                })
             })
 
         })

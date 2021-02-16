@@ -72,7 +72,7 @@
                         </div>
                         <div class="col-6">
                             <label for="" class="col-form-label">Price per Unit</label>
-                            <input type="text" class="form-control" min=00.00 name="price_per_unit" id="price_per_unit" placeholder="" disabled>
+                            <input type="text" class="form-control" min=00.00 name="price_per_unit" id="price_per_unit" placeholder="" readonly>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -111,7 +111,7 @@
 
     <script>
         $('document').ready(function(){
-            $('#sales_list_table').DataTable();
+            var sales_list_table = $('#sales_list_table').DataTable();
 
             function setTwoNumberDecimal(event) {
                 this.value = parseFloat(this.value).toFixed(2);
@@ -153,8 +153,8 @@
                 e.preventDefault();
 
                 var data = $('#addSalesForm').serialize()
-                console.table(data);
                 data = data + '&name=' + $('#product_name').select2('data')[0].text
+                console.table(data);
                 $.ajax({
                     url: '{{ route("sales.api.createSales") }}',
                     dataType: 'JSON',

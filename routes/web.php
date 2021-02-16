@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SalesController;
 use App\Models\ProductBrand;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
@@ -33,6 +34,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/', function () {
             return view('debt.index');
         })->name('debt.index');
+    });
+
+    Route::prefix('sales')->group(function () {
+        Route::get('/', [SalesController::class, 'index'])->name('sales.index');
     });
 
     Route::prefix('product')->group(function () {

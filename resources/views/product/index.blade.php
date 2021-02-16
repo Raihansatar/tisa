@@ -459,11 +459,6 @@
                 e.preventDefault();
                 var formVariantData = new FormData();
 
-                // formVariantData.append('product_name', $('input[name=product_name]').val());
-                // formVariantData.append('product_description', $('textarea[name=product_description]').val());
-                // formVariantData.append('product_brand', $('select[name=product_brand]').val());
-                // formVariantData.append('product_category', $('select[name=product_category]').val());
-
                 formVariantData.append('product_id', $('select[name=product_variant_name]').val());
                 formVariantData.append('product_variant_variasi', (($('#variasiOnlyRepeater').repeaterVal()[""] == null)? "null" : JSON.stringify($('#variasiOnlyRepeater').repeaterVal()[""])));
                 formVariantData.append('product_variant_buying_price', $('input[name=product_variant_buying_price]').val());

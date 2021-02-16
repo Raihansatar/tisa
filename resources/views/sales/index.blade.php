@@ -82,14 +82,14 @@
                         </div>
                         <div class="col-md-6 col-12">
                             <label for="floatingDate">Sales Date</label>
-                            <input type="datetime-local" name="sales_date" class="form-control" value="" id="floatingDate" placeholder="Date">
+                            <input type="datetime-local" name="sales_date" class="form-control" value="{{ date('Y-m-d\Th:m') }}" id="floatingDate" placeholder="Date">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" >Submit</button>
+                <button type="submit" class="btn btn-primary">Add Sales</button>
             </div>
         </form>
         
@@ -120,8 +120,7 @@
                     url: '{{ Route('product.api.getProduct') }}',
                     dataType: 'json',
                     processResults: function (data) {
-                        data.push({id: "1", name: "Untracked", brand: {name: " Sales not track"}})
-
+                        data.push({id: "null", name: "Untracked", brand: {name: " Sales not track"}})
                         return {
                             results:  $.map(data, function (item) {
                                 
@@ -130,13 +129,17 @@
                                     id: item.id
                                 }
                             })
-
                         };
-                        
-
                     },
                 }
             });
+
+            $('#addSalesForm').submit(function(e){
+                e.preventDefault();
+
+                var data = $('#addSalesForm').serialize()
+                console.table(data);
+            })
 
         })
 

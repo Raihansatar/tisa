@@ -39,9 +39,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/', [ProductController::class, 'index'])->name('product.index');
         Route::post('/', [ProductController::class, 'createProduct'])->name('product.create');
         Route::get('/datatable', [ProductController::class, 'index_datatable'])->name('product.index.datatable');
-        Route::post('/variasi/add', [ProductController::class, 'createProduct'] )->name('product.variasi.add');
         
         Route::prefix('api')->group(function () {
+            Route::post('/createProduct', [ProductController::class, 'createProduct'] )->name('product.createProduct');
+            Route::post('/addVariant', [ProductController::class, 'addVariant'] )->name('product.addVariant');
             Route::get('/getProduct', [ProductController::class, 'getProduct'])->name('product.api.getProduct');
             Route::get('/getProductVariant', [ProductController::class, 'getProductVariant'])->name('product.api.getProductVariant');
             Route::get('/getProductDetails', [ProductController::class, 'getProductDetails'])->name('product.api.getProductDetails');

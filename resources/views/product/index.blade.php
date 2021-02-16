@@ -102,11 +102,11 @@
                             <div class="row mb-3" data-repeater-item>
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">Attribute</label>
-                                    <input type="text" class="form-control" name="product_variant_attribute" required>
+                                    <input type="text" class="form-control" name="attribute" required>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">Nilai</label>
-                                    <input type="text" class="form-control nilai" name="product_variant_value" required>
+                                    <input type="text" class="form-control" name="value" required>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">Delete</label>
@@ -358,7 +358,7 @@
                 formData.append('product_stock', $('input[name=product_stock]').val()); 
 
                 $.ajax({
-                    url: "{{ route('product.variasi.add') }}",
+                    url: "{{ route('product.createProduct') }}",
                     data: formData,
                     contentType: false,
                     processData: false,
@@ -455,34 +455,37 @@
                 }
             });
 
-            // $('#addProductForm').submit(function(e){
-            //     e.preventDefault();
-            //     var formData = new FormData();
+            $('#addVariantForm').submit(function(e){
+                e.preventDefault();
+                var formVariantData = new FormData();
 
-            //     formData.append('product_name', $('input[name=product_name]').val());
-            //     formData.append('product_description', $('textarea[name=product_description]').val());
-            //     formData.append('product_brand', $('select[name=product_brand]').val());
-            //     formData.append('product_category', $('select[name=product_category]').val());
-            //     formData.append('product_variasi', (($('#variasiRepeater').repeaterVal()[""] == null)? "null" : JSON.stringify($('#variasiRepeater').repeaterVal()[""])));
-            //     formData.append('product_buying_price', $('input[name=product_buying_price]').val());
-            //     formData.append('product_selling_price', $('input[name=product_selling_price]').val());
-            //     formData.append('product_date_added', $('input[name=product_date_added]').val());
-            //     formData.append('product_stock', $('input[name=product_stock]').val()); 
+                // formVariantData.append('product_name', $('input[name=product_name]').val());
+                // formVariantData.append('product_description', $('textarea[name=product_description]').val());
+                // formVariantData.append('product_brand', $('select[name=product_brand]').val());
+                // formVariantData.append('product_category', $('select[name=product_category]').val());
 
-            //     $.ajax({
-            //         url: "{{ route('product.variasi.add') }}",
-            //         data: formData,
-            //         contentType: false,
-            //         processData: false,
-            //         type: 'POST',
-            //         dataType: "JSON",
-            //         success: function(data){
-            //             console.log(data)
-            //             table.draw();
-            //         }
-            //     })
+                formVariantData.append('product_id', $('select[name=product_variant_name]').val());
+                formVariantData.append('product_variant_variasi', (($('#variasiOnlyRepeater').repeaterVal()[""] == null)? "null" : JSON.stringify($('#variasiOnlyRepeater').repeaterVal()[""])));
+                formVariantData.append('product_variant_buying_price', $('input[name=product_variant_buying_price]').val());
+                formVariantData.append('product_variant_selling_price', $('input[name=product_variant_selling_price]').val());
+                formVariantData.append('product_variant_date_added', $('input[name=product_variant_date_added]').val());
+                formVariantData.append('product_variant_stock', $('input[name=product_variant_stock]').val()); 
 
-            // });
+                $.ajax({
+                    url: "{{ route('product.addVariant') }}",
+                    data: formVariantData,
+                    contentType: false,
+                    processData: false,
+                    type: 'POST',
+                    dataType: "JSON",
+                    success: function(data){
+                        console.log(data)
+                        table.draw();
+                        showVariant()
+                    }
+                })
+
+            });
             
             function showVariant(){
                 $.ajax({

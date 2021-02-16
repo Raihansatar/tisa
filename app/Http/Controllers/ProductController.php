@@ -184,7 +184,22 @@ class ProductController extends Controller
             return response()->json($e);
 
         }
+    }
+
+    public function addVariant(Request $request)
+    {
+        try{
     
-    
+            $product_variant = ProductVariant::create([
+                'product_id' => $request->product_id,
+                'variant' => $request->product_variant_variasi,
+                'buying_price' => $request->product_variant_buying_price,
+                'selling_price_per_unit' => $request->product_variant_selling_price,
+                'stock' => $request->product_variant_stock
+            ]);
+            return response()->json($product_variant);
+        }catch(Exception $e){
+            return response()->json($e);
+        }
     }
 }

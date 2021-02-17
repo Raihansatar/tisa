@@ -45,15 +45,27 @@ class SalesController extends Controller
 
     public function createSales(Request $request)
     {
-        Transaction::create([
-            'user_id' => Auth::id(),
-            'product_variant_id' => $request->product_name,
-            'product_variant_name' => $request->name,
-            'unit_sales' => $request->unit_sales,
-            'price_per_unit' => $request->price_per_unit,
-            'total_sales' => $request->total_sales,
-            'date' => $request->sales_date,
-        ]);
+        if($request->product_name = "null"){
+            Transaction::create([
+                'user_id' => Auth::id(),
+                'product_variant_id' => $request->product_name,
+                'product_variant_name' => $request->name,
+                'unit_sales' => $request->unit_sales,
+                'price_per_unit' => $request->price_per_unit,
+                'total_sales' => $request->total_sales,
+                'date' => $request->sales_date,
+            ]);
+        }else{
+            Transaction::create([
+                'user_id' => Auth::id(),
+                'product_variant_id' => $request->product_name,
+                'product_variant_name' => $request->name,
+                'unit_sales' => $request->unit_sales,
+                'price_per_unit' => $request->price_per_unit,
+                'total_sales' => $request->total_sales,
+                'date' => $request->sales_date,
+            ]);
+        }
         return response()->json($request);
     }
 }

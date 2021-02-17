@@ -182,8 +182,11 @@
                     data: data,
                     type: 'POST',
                     success: function(data){
-                        sales_list_table.draw()
-                        console.log(data)
+                        $('#addSalesModal').modal('toggle');
+                        $('#addSalesForm').trigger("reset");
+                        sales_list_table.draw();
+                        console.log(data);
+                        
                     }
                 })
             })

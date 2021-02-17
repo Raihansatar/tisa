@@ -8,12 +8,48 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
 
 class SalesController extends Controller
 {
     public function index()
     {
         return view('sales.index');
+    }
+
+    public function index_datatable(Request $request)
+    {
+        $data = Transaction::where('user_id', Auth::id())->get();
+
+        return DataTables::of($data)
+            ->editColumn('price_per_unit', function ($row)
+            {
+                if(is_null($row->price_per_unit)){
+                    return 'NOT FOUND';
+                }else{
+                    $data = "RM".$row->price_per_unit;
+                    return $data;
+                }
+            })
+            ->editColumn('total_sales', function ($row)
+            {
+                if(is_null($row->total_sales)){
+                    return 'NOT FOUND';
+                }else{
+                    $data = "RM".$row->total_sales;
+                    return $data;
+                }
+            })
+            ->editColumn('action', function ($row)
+            {
+                $button = '
+                    <button class="btn btn-sm btn-primary"> View </button>
+                    <button class="btn btn-sm btn-secondary"> Edit </button>
+                ';
+                return $button;
+            })
+            ->make(true)
+        ;
     }
 
     public function getVariantProduct(Request $request)

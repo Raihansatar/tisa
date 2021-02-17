@@ -111,7 +111,28 @@
 
     <script>
         $('document').ready(function(){
-            var sales_list_table = $('#sales_list_table').DataTable();
+            var sales_list_table = $('#sales_list_table').DataTable({
+                'responsive': true,
+                'serverSide': true,
+                'ajax': '{{ Route('sales.index.datatable') }}',
+                'columns': [
+                    {data: 'product_variant_name', name: 'product_variant_name'},
+                    {data: 'unit_sales', name: 'unit_sales'},
+                    {data: 'price_per_unit', name: 'price_per_unit'},
+                    {data: 'total_sales', name: 'total_sales'},
+                    {data: 'date', name: 'date'},
+                    {data: 'action', name: 'action'},
+                ],
+                "columnDefs": [
+                    {
+                        targets: 4,
+                        "render": function ( data, type, row ) {
+                            return moment(data).calendar();;
+                        },
+                    },
+                ]
+                
+            });
 
             function setTwoNumberDecimal(event) {
                 this.value = parseFloat(this.value).toFixed(2);
@@ -161,6 +182,7 @@
                     data: data,
                     type: 'POST',
                     success: function(data){
+                        sales_list_table.draw()
                         console.log(data)
                     }
                 })

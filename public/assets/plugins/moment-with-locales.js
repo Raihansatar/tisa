@@ -18053,7 +18053,7 @@
                     return number + '月';
                 case 'w':
                 case 'W':
-                    return number + '週';
+                    return number + '週';z
                 default:
                     return number;
             }

@@ -81,17 +81,14 @@ class SalesController extends Controller
 
     public function createSales(Request $request)
     {
-        // if($request->product_name = "null"){
-        //     Transaction::create([
-        //         'user_id' => Auth::id(),
-        //         'product_variant_id' => $request->product_name,
-        //         'product_variant_name' => $request->name,
-        //         'unit_sales' => $request->unit_sales,
-        //         'price_per_unit' => $request->price_per_unit,
-        //         'total_sales' => $request->total_sales,
-        //         'date' => $request->sales_date,
-        //     ]);
-        // }else{
+        if($request->product_name = 0){
+            Transaction::create([
+                'user_id' => Auth::id(),
+                'unit_sales' => $request->unit_sales,
+                'total_sales' => $request->total_sales,
+                'date' => $request->sales_date,
+            ]);
+        }else{
             Transaction::create([
                 'user_id' => Auth::id(),
                 'product_variant_id' => $request->product_name,
@@ -101,7 +98,7 @@ class SalesController extends Controller
                 'total_sales' => $request->total_sales,
                 'date' => $request->sales_date,
             ]);
-        // }
+        }
         return response()->json($request);
     }
 }

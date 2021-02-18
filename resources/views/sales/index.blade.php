@@ -145,12 +145,24 @@
                     url: '{{ Route('sales.api.getVariantProduct') }}',
                     dataType: 'json',
                     processResults: function (data) {
+                        var untracked = {
+                            "id": 0,
+                            "name": "Untracked",
+                            "selling_price_per_unit": "0.00",
+                            "variant": '[{"attribute":"untracked","value":""}]'
+                        }
+                        data.push(untracked)
                         console.log(data)
+
                         return {
                             results:  $.map(data, function (item) {
                                 var text = item.name;
                                 JSON.parse(item.variant).forEach(element => {
-                                    text = text + " - " + element.value
+                                    if(element.attribute == "untracked"){
+                                        text = text
+                                    }else{
+                                        text = text + " - " + element.value
+                                    }
                                 })
                                 return {
                                     text: text, 

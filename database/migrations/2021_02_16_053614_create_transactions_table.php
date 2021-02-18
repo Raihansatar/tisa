@@ -18,7 +18,7 @@ class CreateTransactionsTable extends Migration
             $table->foreignId('user_id');
             $table->unsignedBigInteger('product_variant_id')->nullable();
             $table->string('product_variant_name')->default('Untracked Product');
-            $table->unsignedBigInteger('unit_sales');
+            $table->unsignedBigInteger('unit_sales')->nullable();
             $table->decimal('price_per_unit', 10, 2)->nullable();
             $table->decimal('total_sales', 10, 2);
             $table->timestamp('date')->useCurrent();

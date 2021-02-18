@@ -72,13 +72,13 @@
                         </div>
                         <div class="col-6">
                             <label for="" class="col-form-label">Price per Unit</label>
-                            <input type="text" class="form-control" min=00.00 name="price_per_unit" id="price_per_unit" placeholder="" readonly>
+                            <input type="text" class="form-control" name="price_per_unit" id="price_per_unit" placeholder="" readonly>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-6 col-12">
                             <label for="">Total Sales</label>
-                            <input type="text" class="form-control" onchange="setTwoNumberDecimal" min="0.00" max="99999.99" step="0.01" name="total_sales" id="total_sales" placeholder="" required>
+                            <input type="text" class="form-control" min="0.00" max="99999.99" step="0.01" name="total_sales" id="total_sales" placeholder="" required>
                         </div>
                         <div class="col-md-6 col-12">
                             <label for="floatingDate">Sales Date</label>
@@ -134,9 +134,9 @@
                 
             });
 
-            function setTwoNumberDecimal(event) {
-                this.value = parseFloat(this.value).toFixed(2);
-            }
+            // function setTwoNumberDecimal(event) {
+            //     this.value = parseFloat(this.value).toFixed(2);
+            // }
 
             $('#product_name').select2({
                 dropdownParent: $('#addSalesModal'),
@@ -148,7 +148,7 @@
                         var untracked = {
                             "id": 0,
                             "name": "Untracked",
-                            "selling_price_per_unit": "0.00",
+                            "selling_price_per_unit": "",
                             "variant": '[{"attribute":"untracked","value":""}]'
                         }
                         data.push(untracked)

@@ -82,7 +82,7 @@
                         </div>
                         <div class="col-md-6 col-12">
                             <label for="floatingDate">Sales Date</label>
-                            <input type="datetime-local" name="sales_date" class="form-control" value="{{ date('Y-m-d\Th:m') }}" id="floatingDate" placeholder="Date">
+                            <input type="datetime-local" name="sales_date" class="form-control" value="{{ date('Y-m-d\TH:m') }}" id="floatingDate" placeholder="Date">
                         </div>
                     </div>
                 </div>
@@ -176,7 +176,12 @@
                 }
             });
             $('#product_name').change(function(){
-                $('#price_per_unit').val($('#product_name').select2('data')[0].custom)
+                if($(this).val() == 0){
+                    $('#unit_sales').attr('readonly', '')
+                }else{
+                    $('#unit_sales').removeAttr('readonly')
+                    $('#price_per_unit').val($('#product_name').select2('data')[0].custom)
+                }
             })
 
             $('#unit_sales').change(function(){

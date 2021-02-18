@@ -21,7 +21,7 @@ class CreateTransactionsTable extends Migration
             $table->unsignedBigInteger('unit_sales')->nullable();
             $table->decimal('price_per_unit', 10, 2)->nullable();
             $table->decimal('total_sales', 10, 2);
-            $table->timestamp('date')->useCurrent();
+            $table->dateTime('date')->useCurrent();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -9,6 +9,9 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             @role('admin')
                     <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="#">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="{{ Route('sales.index') }}">Sales</a>
                     </li>
                     <li class="nav-item">

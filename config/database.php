@@ -4,9 +4,9 @@ use Illuminate\Support\Str;
 
 $url = parse_url(getenv("DATABASE_URL"));
 
-$host = $url["host"];
-$username = $url["user"];
-$password = $url["pass"];
+$host = '127.0.0.1';
+$username = 'root';
+$password = '';
 $database = substr($url["path"], 1);
 
 return [

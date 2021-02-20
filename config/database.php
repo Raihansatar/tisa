@@ -2,13 +2,6 @@
 
 use Illuminate\Support\Str;
 
-$url = parse_url(getenv("DATABASE_URL", "postgres://jpettssbfeyecy:1c4f06e61ec1a2ec083687965797d8c5afcd39bb1bb3628b0a75d4f9a8e86d11@ec2-34-194-215-27.compute-1.amazonaws.com:5432/d3g6qbimetla9v"));
-
-$host = $url["host"];
-$username = $url["user"];
-$password = $url["pass"];
-$database = substr($url["path"], 1);
-
 return [
 
     /*
@@ -73,11 +66,11 @@ return [
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),
-            'host'     => $host,
+            'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '5432'),
-            'database' => $database,
-            'username' => $username,
-            'password' => $password,
+            'database' => env('DB_DATABASE', 'tisa-enterprise-system'),
+            'username' => env('DB_USERNAME', 'raihan'),
+            'password' => env('DB_PASSWORD', ''),
             'charset' => 'utf8',
             'prefix' => '',
             'prefix_indexes' => true,

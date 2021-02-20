@@ -15,7 +15,7 @@ class CreateDebtsTable extends Migration
     {
         Schema::create('debts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->constrained('users');
             $table->string('title');
             $table->decimal('debt', 10, 2);
             $table->decimal('paid', 10, 2);

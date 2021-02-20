@@ -16,9 +16,9 @@ class CreateDebtLogsTable extends Migration
         Schema::create('debt_logs', function (Blueprint $table) {
             $table->id();
             $table->enum('type', ['status', 'new_debt', 'pay_debt', 'partial_payment']);
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->constrained('users');
             $table->string('user_name');
-            $table->foreignId('debt_id');
+            $table->foreignId('debt_id')->constrained('debts');
             $table->string('debt_name');
             $table->decimal('debt_amount', 10, 2)->nullable();
             $table->decimal('paid_amount', 10, 2)->nullable();

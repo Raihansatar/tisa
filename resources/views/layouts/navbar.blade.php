@@ -28,6 +28,12 @@
                     </li>
             @endrole
                 </ul>
+            @auth
+                <div class="d-flex navbar-nav">
+                    <a class="nav-link" aria-current="page" href="{{ Route('logout') }}">Logout</a>
+                </div>
+                    
+            @endauth
             @guest
                 <div class="d-flex navbar-nav">
                     <a class="nav-link" aria-current="page" href="{{ Route('login') }}">Login</a>

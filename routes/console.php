@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Artisan;
 |
 */
 
+Artisan::command('infoooooo', function () {
+    return print_r(PDO::getAvailableDrivers());
+});
+
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');

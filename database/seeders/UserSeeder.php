@@ -21,5 +21,49 @@ class UserSeeder extends Seeder
             'password' =>  Hash::make('password')
         ])->assignRole('admin');
 
+        User::create([
+            'username' => 'safiati',
+            'email' => 'safiati@tisa.my',
+            'password' =>  Hash::make('password')
+        ])->assignRole('user');
+
+        User::create([
+            'username' => 'raihan',
+            'email' => 'raihan@tisa.my',
+            'password' =>  Hash::make('password')
+        ])->assignRole('user');
+
+        User::create([
+            'username' => 'azhar',
+            'email' => 'azhar@tisa.my',
+            'password' =>  Hash::make('password')
+        ])->assignRole('user');
+
+        User::create([
+            'username' => 'izham',
+            'email' => 'izham@tisa.my',
+            'password' =>  Hash::make('password')
+        ])->assignRole('user');
+
+        User::create([
+            'username' => 'suhada',
+            'email' => 'suhada@tisa.my',
+            'password' =>  Hash::make('password')
+        ])->assignRole('user');
+
+        User::create([
+            'username' => 'shahiera',
+            'email' => 'shahiera@tisa.my',
+            'password' =>  Hash::make('password')
+        ])->assignRole('user');
+
+        User::create([
+            'username' => 'haziq',
+            'email' => 'haziq@tisa.my',
+            'password' =>  Hash::make('password')
+        ])->assignRole('user');
+
+        
+
     }
 }

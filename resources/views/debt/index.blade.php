@@ -169,31 +169,41 @@
                     dataType: 'JSON',
                     success: function(data){
                         console.table(data)
+                        if(data.id!=null){
+                            $('#addDebtModal').modal('toggle');
+                            $('#addDebtForm').trigger("reset");
+                            debt_datatable.draw();
+                        }else{
+                            alert('Error Occur')
+                        }
                     }
                 })
             })
 
-            var table = $('#debt_datatable').DataTable({
+            var debt_datatable = $('#debt_datatable').DataTable({
                 "responsive": true,
-                // "serverSide": true,
-                // "ajax": "{{ route('product.index.datatable') }}",
-                // "columns": [
-                //     {data: 'product_name', name: 'product_name'},
-                //     {data: 'category', name: 'category'},
-                //     {data: 'buying_price', name: 'buying_price'},
-                //     {data: 'selling_price_per_unit', name: 'selling_price_per_unit'},
-                //     {data: 'stock', name: 'stock'},
-                //     {data: 'buying_date', name: 'buying_date'},
-                //     {data: 'action', name: 'action'},
-                // ],
-                // "columnDefs": [
-                //     {
-                //         targets: 5,
-                //         "render": function ( data, type, row ) {
-                //             return moment(data).calendar();;
-                //         },
-                //     },
-                // ]
+                "serverSide": true,
+                "ajax": {
+                    url: "{{ route('debt.ajax.datatable') }}",
+                    data: {
+                        idddd: 'test je ni'
+                    },
+                },
+                "columns": [
+                    {data: 'title', name: 'title'},
+                    {data: 'amount', name: 'category'},
+                    {data: 'note', name: 'note'},
+                    {data: 'datetime', name: 'datetime'},
+                    {data: 'status', name: 'status'},
+                ],
+                "columnDefs": [
+                    {
+                        targets: 3,
+                        "render": function ( data, type, row ) {
+                            return moment(data).calendar();;
+                        },
+                    },
+                ]
             });
 
         });

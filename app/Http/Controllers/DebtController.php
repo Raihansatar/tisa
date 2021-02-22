@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Debt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\DataTables;
 
 class DebtController extends Controller
 {
@@ -15,20 +16,51 @@ class DebtController extends Controller
 
     public function debtDatatable(Request $request)
     {
-        dd($request);
+
+        $data = Debt::where('user_id', Auth::id())->get();
+        // dd($request);
+
+        return DataTables::of($data)
+            ->editColumn('datetime', function ($row)
+            {
+                return $row->created_at;
+            })
+            ->editColumn('note', function ($row)
+            {
+                if($row->note!=null){
+                    return $row->note;
+                }else{
+                    return "No Note";
+                }
+            })
+            ->editColumn('status', function ($row)
+            {
+                if($row->status == 'unpaid'){
+                    $button = '<button class="btn btn-sm btn-outline-danger">Unpaid</button>';
+                }elseif($row->status == 'paid'){
+                    $button = '<button class="btn btn-sm btn-outline-success">Paid</button>';
+                }elseif($row->status == 'half-pay'){
+                    $button = '<button class="btn btn-sm btn-outline-secondary">Half-Paid</button>';
+                }else{
+                    $button = "ERROR";
+                }
+                return $button;
+            })
+            ->rawColumns(['status'])
+            ->make(true);
         // return $data;
     }
 
     public function createDebt(Request $request)
     {
-        Debt::create([
+        $data = Debt::create([
             'user_id' => Auth::id(),
             'title' => $request->debt_title,
-            'debt' => $request->debt_amount,
+            'amount' => $request->debt_amount,
             'note' => $request->debt_description,
             'status' => 'unpaid'
         ]);
-        // dd($request);
-        return response()->json($request);
+
+        return response()->json($data);
     }
 }

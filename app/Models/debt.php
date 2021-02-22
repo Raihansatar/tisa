@@ -13,7 +13,7 @@ class Debt extends Model
     protected $fillable = [
         'user_id',
         'title',
-        'debt',
+        'amount',
         'paid',
         'note',
         'status'

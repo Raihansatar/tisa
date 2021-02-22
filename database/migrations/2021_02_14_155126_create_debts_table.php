@@ -17,8 +17,8 @@ class CreateDebtsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->string('title');
-            $table->decimal('debt', 10, 2);
-            $table->decimal('paid', 10, 2);
+            $table->decimal('amount', 10, 2);
+            $table->decimal('paid', 10, 2)->default(0.00);
             $table->text('note')->nullable();
             $table->enum('status', ['unpaid', 'partial', 'paid']);
             $table->softDeletes();

@@ -9,6 +9,8 @@
             Tisa Enterprise
         @elseif(Request::is('product'))
             Product
+        @elseif(Request::is('debt'))
+            Debt - {{ Auth::user()->username }}
         @else
             No title
         @endif

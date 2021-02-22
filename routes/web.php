@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DebtController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SalesController;
@@ -32,9 +33,11 @@ Route::group(['middleware' => ['auth']], function () {
     
     Route::group(['middleware' => ['role:admin|user']], function () {
         Route::prefix('debt')->group(function () {
-            Route::get('/', function () {
-                return view('debt.index');
-            })->name('debt.index');
+            Route::get('/', [DebtController::class, 'index'] )->name('debt.index');
+            Route::prefix('ajax')->group(function () {
+                Route::get('/datatable', [DebtController::class, 'debtDatatable'])->name('debt.ajax.datatable');
+                Route::post('/createDebt', [DebtController::class, 'createDebt'])->name('debt.ajax.createDebt');
+            });
         });
         Route::middleware(['role:admin'])->group(function () {
             Route::prefix('sales')->group(function () {

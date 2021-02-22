@@ -161,6 +161,16 @@
                 e.preventDefault();
 
                 console.log($(this).serialize())
+
+                $.ajax({
+                    url: '{{ route('debt.ajax.createDebt') }}',
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    dataType: 'JSON',
+                    success: function(data){
+                        console.table(data)
+                    }
+                })
             })
 
             var table = $('#debt_datatable').DataTable({

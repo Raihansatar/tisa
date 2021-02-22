@@ -17,8 +17,11 @@ class DebtController extends Controller
     public function debtDatatable(Request $request)
     {
 
-        $data = Debt::where('user_id', Auth::id())->get();
-        // dd($request);
+        if($request->date != null){
+            $data = Debt::where('user_id', Auth::id())->get();
+        }else{
+            $data = Debt::where('user_id', Auth::id())->whereDate('created_at', '=', date('Y-m-d').' 00:00:00')->get();
+        }
 
         return DataTables::of($data)
             ->editColumn('datetime', function ($row)

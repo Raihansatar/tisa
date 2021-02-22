@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DebtController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SalesController;
@@ -25,80 +26,89 @@ Route::get('/', function () {
 })->name('index');
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
-Route::get('/logout', [LoginController::class, 'logoutProcess'])->name('logout.process');
+Route::get('/logout', [LoginController::class, 'logoutProcess'])->name('logout');
 Route::post('/login', [LoginController::class, 'loginProcess'])->name('login.process');
 
 Route::group(['middleware' => ['auth']], function () {
     
-    Route::prefix('debt')->group(function () {
-        Route::get('/', function () {
-            return view('debt.index');
-        })->name('debt.index');
-    });
-
-    Route::prefix('sales')->group(function () {
-        Route::get('/', [SalesController::class, 'index'])->name('sales.index');
-        Route::get('/datatable', [SalesController::class, 'index_datatable'])->name('sales.index.datatable');
-        Route::prefix('api')->group(function () {
-            Route::get('/', [SalesController::class, 'getVariantProduct'])->name('sales.api.getVariantProduct');
-            Route::post('/', [SalesController::class, 'createSales'])->name('sales.api.createSales');
+    Route::group(['middleware' => ['role:admin|user']], function () {
+        Route::prefix('debt')->group(function () {
+            Route::get('/', [DebtController::class, 'index'] )->name('debt.index');
+            Route::prefix('ajax')->group(function () {
+                Route::get('/datatable', [DebtController::class, 'debtDatatable'])->name('debt.ajax.datatable');
+                Route::post('/createDebt', [DebtController::class, 'createDebt'])->name('debt.ajax.createDebt');
+            });
         });
-    });
-
-    Route::prefix('product')->group(function () {
-        Route::get('/', [ProductController::class, 'index'])->name('product.index');
-        Route::post('/', [ProductController::class, 'createProduct'])->name('product.create');
-        Route::get('/datatable', [ProductController::class, 'index_datatable'])->name('product.index.datatable');
+        Route::middleware(['role:admin'])->group(function () {
+            Route::prefix('sales')->group(function () {
+                Route::get('/', [SalesController::class, 'index'])->name('sales.index');
+                Route::get('/datatable', [SalesController::class, 'index_datatable'])->name('sales.index.datatable');
+                Route::prefix('api')->group(function () {
+                    Route::get('/', [SalesController::class, 'getVariantProduct'])->name('sales.api.getVariantProduct');
+                    Route::post('/', [SalesController::class, 'createSales'])->name('sales.api.createSales');
+                });
+            });
         
-        Route::prefix('api')->group(function () {
-            Route::post('/createProduct', [ProductController::class, 'createProduct'] )->name('product.createProduct');
-            Route::post('/addVariant', [ProductController::class, 'addVariant'] )->name('product.addVariant');
-            Route::get('/getProduct', [ProductController::class, 'getProduct'])->name('product.api.getProduct');
-            Route::get('/getProductVariant', [ProductController::class, 'getProductVariant'])->name('product.api.getProductVariant');
-            Route::get('/getProductDetails', [ProductController::class, 'getProductDetails'])->name('product.api.getProductDetails');
-            Route::get('/brand', function (Request $request) {
-                $data = [];
-            
-                try{
-                    if($request->has('q')){
-                        $search = $request->q;
-                        $data =ProductBrand::select("id","name")
-                                ->where('name','LIKE',"%$search%")
-                                ->get();
-                    }else{
-                        $data = ProductBrand::select("id", "name")->get();
-                    }
-            
-                }catch(Exception $e){
-                    return $e;
-                }
-            
-            
-                return response()->json($data);
-            })->name('getBrand');
-            
-            Route::get('/category', function (Request $request) {
-                $data = [];
-            
-                try{
-                    if($request->has('q')){
-                        $search = $request->q;
-                        $data =ProductCategory::select("id","name")
-                                ->where('name','LIKE',"%$search%")
-                                ->get();
-                    }else{
-                        $data = ProductCategory::select("id", "name")->get();
-                    }
+            Route::prefix('product')->group(function () {
+                Route::get('/', [ProductController::class, 'index'])->name('product.index');
+                Route::post('/', [ProductController::class, 'createProduct'])->name('product.create');
+                Route::get('/datatable', [ProductController::class, 'index_datatable'])->name('product.index.datatable');
+                
+                Route::prefix('api')->group(function () {
+                    Route::post('/createProduct', [ProductController::class, 'createProduct'] )->name('product.createProduct');
+                    Route::post('/addVariant', [ProductController::class, 'addVariant'] )->name('product.addVariant');
+                    Route::get('/getProduct', [ProductController::class, 'getProduct'])->name('product.api.getProduct');
+                    Route::get('/getProductVariant', [ProductController::class, 'getProductVariant'])->name('product.api.getProductVariant');
+                    Route::get('/getProductDetails', [ProductController::class, 'getProductDetails'])->name('product.api.getProductDetails');
+                    Route::get('/brand', function (Request $request) {
+                        $data = [];
                     
-                }catch(Exception $e){
-                    return $e;
-                }
+                        try{
+                            if($request->has('q')){
+                                $search = $request->q;
+                                $data =ProductBrand::select("id","name")
+                                        ->where('name','LIKE',"%$search%")
+                                        ->get();
+                            }else{
+                                $data = ProductBrand::select("id", "name")->get();
+                            }
+                    
+                        }catch(Exception $e){
+                            return $e;
+                        }
+                    
+                    
+                        return response()->json($data);
+                    })->name('getBrand');
+                    
+                    Route::get('/category', function (Request $request) {
+                        $data = [];
+                    
+                        try{
+                            if($request->has('q')){
+                                $search = $request->q;
+                                $data =ProductCategory::select("id","name")
+                                        ->where('name','LIKE',"%$search%")
+                                        ->get();
+                            }else{
+                                $data = ProductCategory::select("id", "name")->get();
+                            }
+                            
+                        }catch(Exception $e){
+                            return $e;
+                        }
+                    
+                    
+                        return response()->json($data);
+                    })->name('getCategory');
+                });
             
-            
-                return response()->json($data);
-            })->name('getCategory');
+            });
         });
+
+        // Route::middleware(['role:user'])->group(function () {
+            
+        // });
     
     });
-    
 });

@@ -77,18 +77,18 @@
             </div>
 
             <div class="col-12">
-                <label class="visually-hidden" for="inlineFormInputGroupUsername">Date</label>
+                <label class="visually-hidden" for="from_date">Date</label>
                 <div class="input-group">
                     <div class="input-group-text">From</div>
-                    <input type="date" class="form-control" id="inlineFormInputGroupUsername" placeholder="">
+                    <input type="date" class="form-control" id="from_date" placeholder="">
                 </div>
             </div>
 
             <div class="col-12">
-                <label class="visually-hidden" for="inlineFormInputGroupUsername">Date</label>
+                <label class="visually-hidden" for="to_date">Date</label>
                 <div class="input-group">
                     <div class="input-group-text">To</div>
-                    <input type="date" class="form-control" id="inlineFormInputGroupUsername" placeholder="">
+                    <input type="date" class="form-control" id="to_date" placeholder="">
                 </div>
             </div>
             
@@ -157,6 +157,12 @@
 
     <script>
         $('document').ready(function(){
+            $('#addDebtForm').submit(function(e){
+                e.preventDefault();
+
+                console.log($(this).serialize())
+            })
+
             var table = $('#debt_datatable').DataTable({
                 "responsive": true,
                 // "serverSide": true,

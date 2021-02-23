@@ -15,7 +15,7 @@
         </div>
     
         <div class="d-flex align-items-center justify-content-between">
-            <button class="d-flex align-items-center btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#addSalesModal">
+            <button class="d-flex align-items-center btn btn-sm btn-success" data-toggle="modal" data-target="#addSalesModal">
                 <i class="bi bi-plus-square"></i>
                 <span>Add Sales</span>
             </button>
@@ -51,7 +51,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Add Sales</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
         </div>
         <form class="row g-3" id="addSalesForm" action="" method="POST">
             @csrf
@@ -88,7 +88,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">Add Sales</button>
             </div>
         </form>
@@ -99,16 +99,16 @@
 @endsection
 
 @push('custom-css')
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.css"/>
+    <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css"/>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endpush
 
 @push('custom-js')
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/datatables.min.js"></script>
+    <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script src="{{ asset('assets/plugins/moment-with-locales.js') }}" crossorigin="anonymous"></script>
     <script src="{{ asset('assets/plugins/moment-timezone-with-data.js') }}" crossorigin="anonymous"></script>
     <script src="{{ asset('assets/plugins/jquery.repeater.js') }}" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="{{ asset('assets/js/pages/crud/forms/widgets/select2.js') }}"></script>
 
     <script>
         $('document').ready(function(){

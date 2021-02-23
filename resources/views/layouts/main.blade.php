@@ -19,7 +19,7 @@
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" ype="text/css">
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/plugins/custom/prismjs/prismjs.bundle.css') }}" rel="stylesheet" type="text/css"/>
-    {{-- <link href="{{ asset('assets/css/bootstrap-icons-1.3.0/bootstrap-icons.css') }}" rel="stylesheet" crossorigin="anonymous"> --}}
+    <link href="{{ asset('assets/css/bootstrap-icons-1.3.0/bootstrap-icons.css') }}" rel="stylesheet" crossorigin="anonymous">
     {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"> --}}
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     

@@ -3,27 +3,33 @@
 
 @section('content')
 
-<div class="d-flex justify-content-between">
-    <div class="d-flex align-items-end">
-        <div class="d-flex pe-2">
-            <h1>Debt</h1>
-        </div>
-        <div class="d-flex ps-2">
-            <ul class="breadcrumb">
-                <li class="breadcrumb-item">Username</li>
-            </ul>
-        </div>
-    </div>
+<div class="subheader py-2 py-lg-6  subheader-transparent " id="kt_subheader">
+    <div class="container  d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
 
-    <div class="d-flex align-items-center justify-content-between">
-        <div class="">
-            <button class="d-flex align-items-center btn btn-sm btn-primary" data-toggle="modal" data-target="#addDebtModal">
+        <div class="d-flex align-items-center flex-wrap mr-1">
+			<div class="d-flex align-items-baseline flex-wrap mr-5">
+	            <h5 class="text-dark font-weight-bold my-1 mr-5">
+	                Debt
+                </h5>
+                <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
+                    <li class="breadcrumb-item">
+                        <a href="" class="text-muted">
+                            username</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="d-flex align-items-center">
+            {{-- <a href="#" class="btn btn-light-primary font-weight-bolder btn-sm">
+                Actions
+            </a> --}}
+            <button class="d-flex align-items-center btn btn-sm btn-light-primary" data-toggle="modal" data-target="#addDebtModal">
                 <i class="bi bi-plus-square"></i>
                 <span>Add</span>
             </button>
         </div>
     </div>
-
 </div>
 
 <!-- Modal -->
@@ -68,73 +74,76 @@
     </div>
 </div>
 
-<div class="row pb-4 pt-2">
-    <div class="col-4">
-        <div class="card bg-danger text-white p-3">
-           <span id="total_unpaid"></span>
-        </div>
-    </div>
-    <div class="col-4">
-        <div class="card bg-success text-white p-3">
-            <span id="total_paid"></span>
-        </div>
-    </div>
-    <div class="col-4">
-        <div class="card bg-warning p-3">
-            <span id="total_all"></span>
-        </div>
-    </div>
-</div>
-
-<div class="card">
-    <div class="card-header"> Today's debt (Date) </div>
-    <div class="card-body">
-        <form class="row row-cols-lg-auto g-3 align-items-center">
-
-            <div class="col-12">
-                <label for="" class="form-label"> Filter: </label>
+<div class="container">
+    <div class="row pb-4 pt-2">
+        <div class="col-4">
+            <div class="card bg-danger text-white p-3">
+               <span id="total_unpaid"></span>
             </div>
-
-            <div class="col-12">
-                <label class="visually-hidden" for="from_date">Date</label>
-                <div class="input-group">
-                    <div class="input-group-text">From</div>
-                    <input type="date" class="form-control" id="from_date" placeholder="">
+        </div>
+        <div class="col-4">
+            <div class="card bg-success text-white p-3">
+                <span id="total_paid"></span>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card bg-warning p-3">
+                <span id="total_all"></span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <div class="card-header"> Today's debt (Date) </div>
+        <div class="card-body">
+            <form class="row row-cols-lg-auto g-3 align-items-center">
+    
+                <div class="col-12">
+                    <label for="" class="form-label"> Filter: </label>
                 </div>
-            </div>
-
-            <div class="col-12">
-                <label class="visually-hidden" for="to_date">Date</label>
-                <div class="input-group">
-                    <div class="input-group-text">To</div>
-                    <input type="date" class="form-control" id="to_date" placeholder="">
+    
+                <div class="col-12">
+                    <label class="visually-hidden" for="from_date">Date</label>
+                    <div class="input-group">
+                        <div class="input-group-text">From</div>
+                        <input type="date" class="form-control" id="from_date" placeholder="">
+                    </div>
                 </div>
+    
+                <div class="col-12">
+                    <label class="visually-hidden" for="to_date">Date</label>
+                    <div class="input-group">
+                        <div class="input-group-text">To</div>
+                        <input type="date" class="form-control" id="to_date" placeholder="">
+                    </div>
+                </div>
+                
+                <div class="col-12">
+                    <button type="button" value="show_today" id="filter_today" class="btn btn-primary button-filter">Today</button>
+                </div>
+                <div class="col-12">
+                    <button type="button" value="show_all" id="filter_show_all" class="btn btn-success button-filter">Show All</button>
+                </div>
+                <div class="col-12">
+                    <button type="button" value="reset" id="filter_reset" class="btn btn-danger button-filter">Reset</button>
+                </div>
+            </form>
+            <div>
+                <table class="table" id="debt_datatable">
+                    <thead>
+                        <th>Title</th>
+                        <th>Amount</th>
+                        <th>Note</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
             </div>
-            
-            <div class="col-12">
-                <button type="button" value="show_today" id="filter_today" class="btn btn-primary button-filter">Today</button>
-            </div>
-            <div class="col-12">
-                <button type="button" value="show_all" id="filter_show_all" class="btn btn-success button-filter">Show All</button>
-            </div>
-            <div class="col-12">
-                <button type="button" value="reset" id="filter_reset" class="btn btn-danger button-filter">Reset</button>
-            </div>
-        </form>
-        <div>
-            <table class="table" id="debt_datatable">
-                <thead>
-                    <th>Title</th>
-                    <th>Amount</th>
-                    <th>Note</th>
-                    <th>Time</th>
-                    <th>Status</th>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
         </div>
     </div>
+    
 </div>
 @endsection
 

@@ -18,23 +18,32 @@ class DebtController extends Controller
     {
 
         $data = Debt::where('user_id', Auth::id());
-        if($request->to_date == null && $request->from_date == null){
-            // $data = Debt::where('user_id', Auth::id())->get();
+        
+        // $request->filter == 'reset' kiv luh natey ni
+        if($request->filter == 'show_all'){
+            $data = $data;
+        }elseif($request->filter == 'show_today'){
             $data = $data
-                    ->whereDate('created_at', '=', date('Y-m-d').' 00:00:00');
-
-        }elseif($request->to_date == null && $request->from_date != null){
-            $data = $data
-                    ->whereDate('created_at', '>=', date($request->from_date).' 00:00:00');
-
-        }elseif($request->to_date != null && $request->from_date == null){
-            $data = $data
-                    ->whereDate('created_at', '<=', date($request->to_date).' 00:00:00');
-        }
-        else{
-            $data = $data
-                    ->whereDate('created_at', '<=', date($request->to_date).' 00:00:00')
-                    ->whereDate('created_at', '>=', date($request->from_date).' 00:00:00');
+                        ->whereDate('created_at', '=', date('Y-m-d').' 00:00:00');
+        }else{
+            if($request->to_date == null && $request->from_date == null){
+                // $data = Debt::where('user_id', Auth::id())->get();
+                $data = $data
+                        ->whereDate('created_at', '=', date('Y-m-d').' 00:00:00');
+    
+            }elseif($request->to_date == null && $request->from_date != null){
+                $data = $data
+                        ->whereDate('created_at', '>=', date($request->from_date).' 00:00:00');
+    
+            }elseif($request->to_date != null && $request->from_date == null){
+                $data = $data
+                        ->whereDate('created_at', '<=', date($request->to_date).' 00:00:00');
+            }
+            else{
+                $data = $data
+                        ->whereDate('created_at', '<=', date($request->to_date).' 00:00:00')
+                        ->whereDate('created_at', '>=', date($request->from_date).' 00:00:00');
+            }
         }
         
         $data = $data

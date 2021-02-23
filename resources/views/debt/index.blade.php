@@ -93,10 +93,13 @@
             </div>
             
             <div class="col-12">
-                <button type="button" value="show_today" id="filter_today" class="btn btn-primary">Today</button>
+                <button type="button" value="show_today" id="filter_today" class="btn btn-primary button-filter">Today</button>
             </div>
             <div class="col-12">
-                <button type="button" value="show_all" id="filter_show_all" class="btn btn-primary">Show All</button>
+                <button type="button" value="show_all" id="filter_show_all" class="btn btn-success button-filter">Show All</button>
+            </div>
+            <div class="col-12">
+                <button type="button" value="reset" id="filter_reset" class="btn btn-danger button-filter">Reset</button>
             </div>
         </form>
         <div>
@@ -129,12 +132,34 @@
 
     <script>
         $('document').ready(function(){
+            var filter = null;
+
             $('#filter_show_all').click(function(){
-                alert($(this).val())
+                filter = $(this).val();
+                $(this).addClass('active');
+                $('#filter_today').removeClass('active');
+                $('#filter_reset').removeClass('active');
+                
+                debt_datatable.draw();
             });
 
             $('#filter_today').click(function(){
+                filter = $(this).val();
+                $(this).addClass('active');
+                $('#filter_show_all').removeClass('active');
+                $('#filter_reset').removeClass('active');
 
+                debt_datatable.draw();
+            });
+
+            $('#filter_reset').click(function(){
+                filter = $(this).val();
+                $(this).addClass('active');
+                $('#filter_show_all').removeClass('active');
+                $('#filter_today').removeClass('active');
+
+
+                debt_datatable.draw();
             });
 
             $('#from_date').change(function(){
@@ -186,6 +211,9 @@
                             }else{
                                 return $('#to_date').val().toString()
                             }
+                        },
+                        filter: function(){
+                            return filter;
                         }
                     },
                 },

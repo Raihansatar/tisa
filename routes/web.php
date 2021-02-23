@@ -36,6 +36,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/', [DebtController::class, 'index'] )->name('debt.index');
             Route::prefix('ajax')->group(function () {
                 Route::get('/datatable', [DebtController::class, 'debtDatatable'])->name('debt.ajax.datatable');
+                Route::get('/getTotalDebt', [DebtController::class, 'getTotalDebt'])->name('debt.ajax.getTotalDebt');
                 Route::post('/createDebt', [DebtController::class, 'createDebt'])->name('debt.ajax.createDebt');
             });
         });

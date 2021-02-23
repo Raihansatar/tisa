@@ -18,7 +18,7 @@ class DebtController extends Controller
     {
 
         $data = Debt::where('user_id', Auth::id());
-        
+
         // $request->filter == 'reset' kiv luh natey ni
         if($request->filter == 'show_all'){
             $data = $data;
@@ -69,8 +69,8 @@ class DebtController extends Controller
                     $button = '<button class="btn btn-sm btn-outline-danger">Unpaid</button>';
                 }elseif($row->status == 'paid'){
                     $button = '<button class="btn btn-sm btn-outline-success">Paid</button>';
-                }elseif($row->status == 'half-pay'){
-                    $button = '<button class="btn btn-sm btn-outline-secondary">Half-Paid</button>';
+                }elseif($row->status == 'partial'){
+                    $button = '<button class="btn btn-sm btn-outline-info">Partial</button>';
                 }else{
                     $button = "ERROR";
                 }
@@ -91,6 +91,17 @@ class DebtController extends Controller
             'status' => 'unpaid'
         ]);
 
+        return response()->json($data);
+    }
+
+    public function getTotalDebt()
+    {
+        $data['unpaid'] = Debt::where('user_id', Auth::id())->where('status', 'unpaid')->sum('amount');
+        $data['paid'] = Debt::where('user_id', Auth::id())->where('status', 'paid')->sum('amount') + Debt::where('user_id', Auth::id())->where('status', 'partial')->sum('paid');
+        $data['total'] = $data['unpaid'] + $data['paid'];
+
+        // $data['partial_paid'] = Debt::where('user_id', Auth::id())->where('status', 'partial')->sum('paid');
+        
         return response()->json($data);
     }
 }

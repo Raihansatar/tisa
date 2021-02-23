@@ -68,10 +68,29 @@
     </div>
 </div>
 
-<div class="card card-custom">
+<div class="row pb-4 pt-2">
+    <div class="col-4">
+        <div class="card bg-danger text-white p-3">
+           <span id="total_unpaid"></span>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card bg-success text-white p-3">
+            <span id="total_paid"></span>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card bg-warning p-3">
+            <span id="total_all"></span>
+        </div>
+    </div>
+</div>
+
+<div class="card">
     <div class="card-header"> Today's debt (Date) </div>
     <div class="card-body">
         <form class="row row-cols-lg-auto g-3 align-items-center">
+
             <div class="col-12">
                 <label for="" class="form-label"> Filter: </label>
             </div>
@@ -133,6 +152,20 @@
     <script>
         $('document').ready(function(){
             var filter = null;
+            getTotal()
+            function getTotal(){
+                $.ajax({
+                    url: '{{ route('debt.ajax.getTotalDebt') }}',
+                    type: 'GET',
+                    dataType: 'JSON',
+                    success: function(data){
+                        console.table(data)
+                        $('#total_paid').html('Paid: RM' + data.paid)
+                        $('#total_unpaid').html('Unpaid: RM' + data.unpaid)
+                        $('#total_all').html('Total: RM' + data.total)
+                    }
+                })
+            }
 
             $('#filter_show_all').click(function(){
                 filter = $(this).val();
@@ -173,6 +206,7 @@
                 filter = null
                 debt_datatable.draw()
             });
+
             $('#addDebtForm').submit(function(e){
                 e.preventDefault();
 
@@ -189,6 +223,7 @@
                             $('#addDebtModal').modal('toggle');
                             $('#addDebtForm').trigger("reset");
                             debt_datatable.draw();
+                            getTotal()
                         }else{
                             alert('Error Occur')
                         }

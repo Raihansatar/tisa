@@ -92,15 +92,6 @@
                 </div>
             </div>
             
-            {{-- <div class="col-12">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="inlineFormCheck">
-                    <label class="form-check-label" for="inlineFormCheck">
-                    Remember me
-                    </label>
-                </div>
-            </div> --}}
-            
             <div class="col-12">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
@@ -135,6 +126,13 @@
 
     <script>
         $('document').ready(function(){
+            $('#from_date').change(function(){
+                debt_datatable.draw()
+            });
+
+            $('#to_date').change(function(){
+                debt_datatable.draw()
+            });
             $('#addDebtForm').submit(function(e){
                 e.preventDefault();
 
@@ -164,7 +162,20 @@
                 "ajax": {
                     url: "{{ route('debt.ajax.datatable') }}",
                     data: {
-                        date: 'test je ni'
+                        from_date: function(){
+                            if($('#from_date').val() == null){
+                                return null;
+                            }else{
+                                return $('#from_date').val().toString()
+                            }
+                        },
+                        to_date: function(){
+                            if($('#to_date').val() == null){
+                                return null;
+                            }else{
+                                return $('#to_date').val().toString()
+                            }
+                        }
                     },
                 },
                 "columns": [
@@ -174,6 +185,7 @@
                     {data: 'datetime', name: 'datetime'},
                     {data: 'status', name: 'status'},
                 ],
+                "order": [[ 3, "desc" ]],
                 "columnDefs": [
                     {
                         targets: 3,

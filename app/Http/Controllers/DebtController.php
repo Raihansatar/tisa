@@ -17,10 +17,33 @@ class DebtController extends Controller
     public function debtDatatable(Request $request)
     {
 
-        if($request->date != null){
-            $data = Debt::where('user_id', Auth::id())->get();
-        }else{
-            $data = Debt::where('user_id', Auth::id())->whereDate('created_at', '=', date('Y-m-d').' 00:00:00')->get();
+        if($request->to_date == null && $request->from_date == null){
+            // $data = Debt::where('user_id', Auth::id())->get();
+            $data = Debt::where('user_id', Auth::id())
+                    ->whereDate('created_at', '=', date('Y-m-d').' 00:00:00')
+                    ->orderBy('created_at', 'DESC')
+                    ->get();
+
+
+        }elseif($request->to_date == null && $request->from_date != null){
+            $data = Debt::where('user_id', Auth::id())
+                    ->whereDate('created_at', '>=', date($request->from_date).' 00:00:00')
+                    ->orderBy('created_at', 'DESC')
+                    ->get();
+
+        }elseif($request->to_date != null && $request->from_date == null){
+            $data = Debt::where('user_id', Auth::id())
+                    ->whereDate('created_at', '<=', date($request->to_date).' 00:00:00')
+                    ->orderBy('created_at', 'DESC')
+                    ->get();
+
+        }
+        else{
+            $data = Debt::where('user_id', Auth::id())
+                    ->whereDate('created_at', '<=', date($request->to_date).' 00:00:00')
+                    ->whereDate('created_at', '>=', date($request->from_date).' 00:00:00')
+                    ->orderBy('created_at', 'DESC')
+                    ->get();
         }
 
         return DataTables::of($data)

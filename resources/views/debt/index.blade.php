@@ -98,38 +98,34 @@
         <div class="card-body">
             <form class="row row-cols-lg-auto g-3 align-items-center">
     
-                <div class="col-12">
-                    <label for="" class="form-label"> Filter: </label>
-                </div>
+                <label for="" class="form-label"> Filter: </label>
     
-                <div class="col-12">
-                    <label class="visually-hidden" for="from_date">Date</label>
+                <div class="col-3">
                     <div class="input-group">
                         <div class="input-group-text">From</div>
                         <input type="date" class="form-control" id="from_date" placeholder="">
                     </div>
                 </div>
     
-                <div class="col-12">
-                    <label class="visually-hidden" for="to_date">Date</label>
+                <div class="col-3">
                     <div class="input-group">
                         <div class="input-group-text">To</div>
                         <input type="date" class="form-control" id="to_date" placeholder="">
                     </div>
                 </div>
                 
-                <div class="col-12">
+                <div class="col">
                     <button type="button" value="show_today" id="filter_today" class="btn btn-primary button-filter">Today</button>
                 </div>
-                <div class="col-12">
+                <div class="col">
                     <button type="button" value="show_all" id="filter_show_all" class="btn btn-success button-filter">Show All</button>
                 </div>
-                <div class="col-12">
+                <div class="col">
                     <button type="button" value="reset" id="filter_reset" class="btn btn-danger button-filter">Reset</button>
                 </div>
             </form>
             <div>
-                <table class="table" id="debt_datatable">
+                <table class="table table-hover" id="debt_datatable">
                     <thead>
                         <th>Title</th>
                         <th>Amount</th>
@@ -143,7 +139,7 @@
             </div>
         </div>
     </div>
-    
+
 </div>
 @endsection
 

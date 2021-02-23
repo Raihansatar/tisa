@@ -40,14 +40,14 @@
                 <div class="px-4">
                     <div class="row mb-3">
                         <div class="col-12">
-                            <label for="debt_name" class="col-form-label">Title</label>
+                            <label for="debt_name" class="col-form-label">Title <span style="color: red">*</span></label>
                             <input class="form-control col-12" name="debt_title" id="debt_title" required>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-12">
-                            <label class="col-form-label col-12" for="">Amount</label>
-                            <input type="number" class="form-control col-12" name="debt_amount" id="debt_amount">
+                            <label class="col-form-label col-12" for="">Amount <span style="color: red">*</span></label>
+                            <input type="number" class="form-control col-12" name="debt_amount" id="debt_amount" required>
                         </div>
                     </div>
                     <div class="row mb-3">

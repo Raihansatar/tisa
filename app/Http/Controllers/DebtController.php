@@ -17,34 +17,29 @@ class DebtController extends Controller
     public function debtDatatable(Request $request)
     {
 
+        $data = Debt::where('user_id', Auth::id());
         if($request->to_date == null && $request->from_date == null){
             // $data = Debt::where('user_id', Auth::id())->get();
-            $data = Debt::where('user_id', Auth::id())
-                    ->whereDate('created_at', '=', date('Y-m-d').' 00:00:00')
-                    ->orderBy('created_at', 'DESC')
-                    ->get();
-
+            $data = $data
+                    ->whereDate('created_at', '=', date('Y-m-d').' 00:00:00');
 
         }elseif($request->to_date == null && $request->from_date != null){
-            $data = Debt::where('user_id', Auth::id())
-                    ->whereDate('created_at', '>=', date($request->from_date).' 00:00:00')
-                    ->orderBy('created_at', 'DESC')
-                    ->get();
+            $data = $data
+                    ->whereDate('created_at', '>=', date($request->from_date).' 00:00:00');
 
         }elseif($request->to_date != null && $request->from_date == null){
-            $data = Debt::where('user_id', Auth::id())
-                    ->whereDate('created_at', '<=', date($request->to_date).' 00:00:00')
-                    ->orderBy('created_at', 'DESC')
-                    ->get();
-
+            $data = $data
+                    ->whereDate('created_at', '<=', date($request->to_date).' 00:00:00');
         }
         else{
-            $data = Debt::where('user_id', Auth::id())
+            $data = $data
                     ->whereDate('created_at', '<=', date($request->to_date).' 00:00:00')
-                    ->whereDate('created_at', '>=', date($request->from_date).' 00:00:00')
-                    ->orderBy('created_at', 'DESC')
-                    ->get();
+                    ->whereDate('created_at', '>=', date($request->from_date).' 00:00:00');
         }
+        
+        $data = $data
+                ->orderBy('created_at', 'DESC')
+                ->get();
 
         return DataTables::of($data)
             ->editColumn('datetime', function ($row)

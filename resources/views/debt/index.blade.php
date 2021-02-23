@@ -92,9 +92,9 @@
                 </div>
             </div>
             
-            <div class="col-12">
+            {{-- <div class="col-12">
                 <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
+            </div> --}}
         </form>
         <div>
             <table class="table" id="debt_datatable">

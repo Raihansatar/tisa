@@ -92,9 +92,12 @@
                 </div>
             </div>
             
-            {{-- <div class="col-12">
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div> --}}
+            <div class="col-12">
+                <button type="button" value="show_today" id="filter_today" class="btn btn-primary">Today</button>
+            </div>
+            <div class="col-12">
+                <button type="button" value="show_all" id="filter_show_all" class="btn btn-primary">Show All</button>
+            </div>
         </form>
         <div>
             <table class="table" id="debt_datatable">
@@ -126,6 +129,14 @@
 
     <script>
         $('document').ready(function(){
+            $('#filter_show_all').click(function(){
+                alert($(this).val())
+            });
+
+            $('#filter_today').click(function(){
+
+            });
+
             $('#from_date').change(function(){
                 debt_datatable.draw()
             });

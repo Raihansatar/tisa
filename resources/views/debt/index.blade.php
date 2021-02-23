@@ -139,7 +139,8 @@
                 $(this).addClass('active');
                 $('#filter_today').removeClass('active');
                 $('#filter_reset').removeClass('active');
-                
+                $('#from_date').val('');
+                $('#to_date').val('');
                 debt_datatable.draw();
             });
 
@@ -148,7 +149,8 @@
                 $(this).addClass('active');
                 $('#filter_show_all').removeClass('active');
                 $('#filter_reset').removeClass('active');
-
+                $('#from_date').val('');
+                $('#to_date').val('');
                 debt_datatable.draw();
             });
 
@@ -163,10 +165,12 @@
             });
 
             $('#from_date').change(function(){
+                filter = null
                 debt_datatable.draw()
             });
 
             $('#to_date').change(function(){
+                filter = null
                 debt_datatable.draw()
             });
             $('#addDebtForm').submit(function(e){

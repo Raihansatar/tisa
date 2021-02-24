@@ -24,7 +24,11 @@
             {{-- <a href="#" class="btn btn-light-primary font-weight-bolder btn-sm">
                 Actions
             </a> --}}
-            <button class="d-flex align-items-center btn btn-sm btn-light-primary" data-toggle="modal" data-target="#addDebtModal">
+            <button class="d-flex align-items-center btn btn-success" data-toggle="modal" data-target="#payModal">
+                <span>Pay</span>
+            </button>
+            
+            <button class="d-flex align-items-center btn btn-light-primary" data-toggle="modal" data-target="#addDebtModal">
                 <i class="bi bi-plus-square"></i>
                 <span>Add</span>
             </button>
@@ -73,8 +77,6 @@
         </div>
     </div>
 </div>
-
-
 
 
 <div class="container">

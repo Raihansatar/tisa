@@ -74,6 +74,9 @@
     </div>
 </div>
 
+
+
+
 <div class="container">
     <div class="row">
         <div class="col-xl-4">
@@ -110,51 +113,51 @@
             </div>
         </div>
     </div>
+
+    <div class="card gutter-b">
+        <div class="card-body row">
+            <label for="" class="form-label"> Filter: </label>
+
+            <div class="col-3">
+                <div class="input-group">
+                    <div class="input-group-text">From</div>
+                    <input type="date" class="form-control" id="from_date" placeholder="">
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div class="input-group">
+                    <div class="input-group-text">To</div>
+                    <input type="date" class="form-control" id="to_date" placeholder="">
+                </div>
+            </div>
+            
+            <div class="col">
+                <button type="button" value="show_today" id="filter_today" class="btn btn-primary button-filter">Today</button>
+            </div>
+            <div class="col">
+                <button type="button" value="show_all" id="filter_show_all" class="btn btn-success button-filter">Show All</button>
+            </div>
+            <div class="col">
+                <button type="button" value="reset" id="filter_reset" class="btn btn-danger button-filter">Reset</button>
+            </div>
+        </div>
+    </div>
     
     <div class="card">
         <div class="card-header"> Today's debt (Date) </div>
         <div class="card-body">
-            <form class="row row-cols-lg-auto g-3 align-items-center">
-    
-                <label for="" class="form-label"> Filter: </label>
-    
-                <div class="col-3">
-                    <div class="input-group">
-                        <div class="input-group-text">From</div>
-                        <input type="date" class="form-control" id="from_date" placeholder="">
-                    </div>
-                </div>
-    
-                <div class="col-3">
-                    <div class="input-group">
-                        <div class="input-group-text">To</div>
-                        <input type="date" class="form-control" id="to_date" placeholder="">
-                    </div>
-                </div>
-                
-                <div class="col">
-                    <button type="button" value="show_today" id="filter_today" class="btn btn-primary button-filter">Today</button>
-                </div>
-                <div class="col">
-                    <button type="button" value="show_all" id="filter_show_all" class="btn btn-success button-filter">Show All</button>
-                </div>
-                <div class="col">
-                    <button type="button" value="reset" id="filter_reset" class="btn btn-danger button-filter">Reset</button>
-                </div>
-            </form>
-            <div>
-                <table class="table table-hover" id="debt_datatable">
-                    <thead>
-                        <th>Title</th>
-                        <th>Amount</th>
-                        <th>Note</th>
-                        <th>Time</th>
-                        <th>Status</th>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
+            <table class="table table-hover" id="debt_datatable">
+                <thead>
+                    <th>Title</th>
+                    <th>Amount</th>
+                    <th>Note</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
         </div>
     </div>
 

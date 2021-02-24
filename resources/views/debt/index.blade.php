@@ -75,20 +75,38 @@
 </div>
 
 <div class="container">
-    <div class="row pb-4 pt-2">
-        <div class="col-4">
-            <div class="card bg-danger text-white p-3">
-               <span id="total_unpaid"></span>
+    <div class="row">
+        <div class="col-xl-4">
+            <div class="card card-custom bgi-no-repeat card-stretch gutter-b">
+                <div class="card-body">
+                    <a href="#" class="card-title font-weight-bolder text-info font-size-h6 mb-4 text-hover-state-dark d-block">Unpaid</a>
+            
+                    <div class="font-weight-bold text-muted font-size-sm">
+                        <span class="text-dark-75 font-weight-bolder font-size-h2 mr-2" id="total_unpaid"></span>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-4">
-            <div class="card bg-success text-white p-3">
-                <span id="total_paid"></span>
+        <div class="col-xl-4">
+            <div class="card card-custom bg-info card-stretch gutter-b">
+                <div class="card-body">
+                    <a href="#" class="card-title font-weight-bolder text-white font-size-h6 mb-4 text-hover-state-dark d-block">Paid</a>
+            
+                    <div class="font-weight-bold text-white font-size-sm">
+                        <span class="font-size-h2 mr-2" id="total_paid"></span>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-4">
-            <div class="card bg-warning p-3">
-                <span id="total_all"></span>
+        <div class="col-xl-4">
+            <div class="card card-custom bg-dark card-stretch gutter-b">
+                <div class="card-body">
+                    <a href="#" class="card-title font-weight-bolder text-white font-size-h6 mb-4 text-hover-state-dark d-block">Total All</a>
+            
+                    <div class="font-weight-bold text-white font-size-sm">
+                        <span class="font-size-h2 mr-2" id="total_all"></span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -164,9 +182,9 @@
                     dataType: 'JSON',
                     success: function(data){
                         console.table(data)
-                        $('#total_paid').html('Paid: RM' + data.paid)
-                        $('#total_unpaid').html('Unpaid: RM' + data.unpaid)
-                        $('#total_all').html('Total: RM' + data.total)
+                        $('#total_paid').html('RM' + data.paid)
+                        $('#total_unpaid').html('RM' + data.unpaid)
+                        $('#total_all').html('RM' + data.total)
                     }
                 })
             }

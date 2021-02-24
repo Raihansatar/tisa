@@ -25,12 +25,13 @@
     
     @stack('custom-css')
 </head>
-<body>
-    <header>
-        @include('layouts.navbar')
-    </header>
+<body style="background-color: #FBF6F0;">
 
-    <div class="container mt-4">
+    <div id="kt_wrapper">
+        @include('layouts.navbar')
+    </div>
+
+    <div class="mt-4">
         @yield('content')
     </div>
     <script>

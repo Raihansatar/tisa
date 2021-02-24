@@ -20,7 +20,7 @@
             </div>
         </div>
 
-        <div class="d-flex align-items-center">
+        <div class="d-flex align-items-center justify-content-between">
             {{-- <a href="#" class="btn btn-light-primary font-weight-bolder btn-sm">
                 Actions
             </a> --}}

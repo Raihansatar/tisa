@@ -66,11 +66,11 @@ class DebtController extends Controller
             ->editColumn('status', function ($row)
             {
                 if($row->status == 'unpaid'){
-                    $button = '<button class="btn btn-sm btn-outline-danger">Unpaid</button>';
+                    $button = '<span class="label label-lg label-light-primary label-inline">Unpaid</span>';
                 }elseif($row->status == 'paid'){
-                    $button = '<button class="btn btn-sm btn-outline-success">Paid</button>';
+                    $button = '<span class="label label-lg label-light-success label-inline">Paid</span>';
                 }elseif($row->status == 'partial'){
-                    $button = '<button class="btn btn-sm btn-outline-info">Partial</button>';
+                    $button = '<span class="label label-lg label-light-info label-inline">Partial</span>';
                 }else{
                     $button = "ERROR";
                 }

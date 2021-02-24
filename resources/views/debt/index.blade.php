@@ -145,7 +145,11 @@
     </div>
     
     <div class="card">
-        <div class="card-header"> Today's debt (Date) </div>
+        <div class="card-header">
+            <span class="card-title">
+                Today's debt (Date)
+            </span>
+        </div>
         <div class="card-body">
             <table class="table table-hover" id="debt_datatable">
                 <thead>
@@ -155,8 +159,6 @@
                     <th>Time</th>
                     <th>Status</th>
                 </thead>
-                <tbody>
-                </tbody>
             </table>
         </div>
     </div>

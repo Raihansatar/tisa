@@ -16,14 +16,14 @@
             </div>
             <div class="form-group fv-plugins-icon-container">
                 <label class= font-weight-bolder text-dark">Username</label>
-                <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg" type="text" name="username" autocomplete="off">
+                <input class="form-control h-auto py-4 px-3 rounded-lg" type="text" name="username" autocomplete="off">
             <div class="fv-plugins-message-container"></div></div>
             <div class="form-group fv-plugins-icon-container">
                 <div class="d-flex justify-content-between mt-n5">
                     <label class= font-weight-bolder text-dark pt-5">Password</label>
                 </div>
 
-                <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg" type="password" name="password" autocomplete="off">
+                <input class="form-control h-auto py-4 px-3 rounded-lg" type="password" name="password" autocomplete="off">
             <div class="fv-plugins-message-container"></div></div>
             <div class="pb-lg-0 pb-5">
                 <button type="submit" id="kt_login_signin_submit" class="btn btn-primary font-weight-bolder px-8 py-4 my-3 mr-3">Sign In</button>

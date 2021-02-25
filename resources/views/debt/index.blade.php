@@ -28,7 +28,7 @@
                 <span>Pay</span>
             </button>
             
-            <button class="d-flex align-items-center btn btn-light-primary" data-toggle="modal" data-target="#addDebtModal">
+            <button class="d-flex align-items-center btn btn-primary" data-toggle="modal" data-target="#addDebtModal">
                 <i class="bi bi-plus-square"></i>
                 <span>Add</span>
             </button>
@@ -65,7 +65,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="addDebtModal" tabindex="-1" aria-labelledby="addDebtModal" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="">Add </h5>
@@ -73,7 +73,7 @@
                 <i aria-hidden="true" class="ki ki-close"></i>
             </button>
         </div>
-        <form class="row g-3" id="addDebtForm" action="" method="POST">
+        <form class="" id="addDebtForm" action="" method="POST">
             @csrf
             <div class="modal-body">
                 <div class="px-4">
@@ -85,7 +85,7 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-12">
-                            <label class="col-form-label col-12" for="">Amount <span style="color: red">*</span></label>
+                            <label class="col-form-label" for="">Amount <span style="color: red">*</span></label>
                             <input type="number" class="form-control col-12" name="debt_amount" id="debt_amount" required>
                         </div>
                     </div>
@@ -264,6 +264,13 @@
                 filter = null
                 debt_datatable.draw()
             });
+
+            $('#payForm').submit(function(e){
+                e.preventDefault();
+
+                console.log($('#pay_amount').val())
+                
+            })
 
             $('#addDebtForm').submit(function(e){
                 e.preventDefault();

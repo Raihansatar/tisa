@@ -14,7 +14,7 @@
                 <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
                     <li class="breadcrumb-item">
                         <a href="" class="text-muted">
-                            username</a>
+                            {{ Auth::user()->username }}</a>
                     </li>
                 </ul>
             </div>
@@ -37,12 +37,41 @@
 </div>
 
 <!-- Modal -->
+<div class="modal fade" id="payModal" tabindex="-1" aria-labelledby="payModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="">Payment </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
+            </div>
+            <form class="" id="payForm" action="" method="POST">
+                @csrf
+                <div class="modal-body">
+                    <div class="col-12">
+                        <label class="col-form-label" for="">Amount <span style="color: red">*</span></label>
+                        <input type="number" class="form-control" name="pay_amount" id="pay_amount" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
 <div class="modal fade" id="addDebtModal" tabindex="-1" aria-labelledby="addDebtModal" aria-hidden="true">
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="">Add </h5>
-          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <i aria-hidden="true" class="ki ki-close"></i>
+            </button>
         </div>
         <form class="row g-3" id="addDebtForm" action="" method="POST">
             @csrf
@@ -169,14 +198,14 @@
 @endsection
 
 @push('custom-css')
-    <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ secure_asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css"/>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endpush
 
 @push('custom-js')
 \
-    <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
-    <script src="{{ asset('assets/js/pages/crud/forms/widgets/select2.js') }}"></script>
+    <script src="{{ secure_asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+    <script src="{{ secure_asset('assets/js/pages/crud/forms/widgets/select2.js') }}"></script>
 
     <script>
         $('document').ready(function(){

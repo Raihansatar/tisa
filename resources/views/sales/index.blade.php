@@ -99,16 +99,16 @@
 @endsection
 
 @push('custom-css')
-    <link href="{{ asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ secure_asset('assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css"/>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endpush
 
 @push('custom-js')
-    <script src="{{ asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
-    <script src="{{ asset('assets/plugins/moment-with-locales.js') }}" crossorigin="anonymous"></script>
-    <script src="{{ asset('assets/plugins/moment-timezone-with-data.js') }}" crossorigin="anonymous"></script>
-    <script src="{{ asset('assets/plugins/jquery.repeater.js') }}" crossorigin="anonymous"></script>
-    <script src="{{ asset('assets/js/pages/crud/forms/widgets/select2.js') }}"></script>
+    <script src="{{ secure_asset('assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+    <script src="{{ secure_asset('assets/plugins/moment-with-locales.js') }}" crossorigin="anonymous"></script>
+    <script src="{{ secure_asset('assets/plugins/moment-timezone-with-data.js') }}" crossorigin="anonymous"></script>
+    <script src="{{ secure_asset('assets/plugins/jquery.repeater.js') }}" crossorigin="anonymous"></script>
+    <script src="{{ secure_asset('assets/js/pages/crud/forms/widgets/select2.js') }}"></script>
 
     <script>
         $('document').ready(function(){

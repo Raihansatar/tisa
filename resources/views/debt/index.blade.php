@@ -51,7 +51,7 @@
                 <div class="modal-body">
                     <div class="col-12">
                         <label class="col-form-label" for="">Amount <span style="color: red">*</span></label>
-                        <input type="number" class="form-control" name="pay_amount" id="pay_amount" required>
+                        <input type="number" step="0.01" class="form-control" name="pay_amount" id="pay_amount" required>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -209,6 +209,12 @@
 
     <script>
         $('document').ready(function(){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
             var filter = null;
             getTotal()
             function getTotal(){
@@ -217,7 +223,6 @@
                     type: 'GET',
                     dataType: 'JSON',
                     success: function(data){
-                        console.table(data)
                         $('#total_paid').html('RM' + data.paid)
                         $('#total_unpaid').html('RM' + data.unpaid)
                         $('#total_all').html('RM' + data.total)
@@ -270,6 +275,25 @@
 
                 console.log($('#pay_amount').val())
                 
+                $.ajax({
+                    url: '{{ route('debt.ajax.payDebt') }}',
+                    type: 'POST',
+                    data: {
+                        'pay_amount': $('#pay_amount').val()
+                    },
+                    dataType: 'JSON',
+                    success: function(data){
+                        console.table(data)
+                        // if(data.id!=null){
+                            $('#payModal').modal('toggle');
+                            $('#payForm').trigger("reset");
+                            debt_datatable.draw();
+                            getTotal()
+                        // }else{
+                        //     alert('Error Occur')
+                        // }
+                    }
+                })
             })
 
             $('#addDebtForm').submit(function(e){

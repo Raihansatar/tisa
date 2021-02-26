@@ -104,4 +104,22 @@ class DebtController extends Controller
         
         return response()->json($data);
     }
+
+    public function payDebt(Request $request)
+    {
+       $data['status'] = $this->exceedDebtAmount($request->pay_amount);
+
+        return response()->json($data);
+    }
+
+    protected function exceedDebtAmount($amount)
+    {
+        $unpaid = Debt::where('user_id', Auth::id())->where('status', 'unpaid')->sum('amount');
+
+        if($amount <= $unpaid){
+            return false;
+        }else{
+            return true;
+        }
+    }
 }

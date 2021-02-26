@@ -38,6 +38,7 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/datatable', [DebtController::class, 'debtDatatable'])->name('debt.ajax.datatable');
                 Route::get('/getTotalDebt', [DebtController::class, 'getTotalDebt'])->name('debt.ajax.getTotalDebt');
                 Route::post('/createDebt', [DebtController::class, 'createDebt'])->name('debt.ajax.createDebt');
+                Route::post('/payDebt', [DebtController::class, 'payDebt'])->name('debt.ajax.payDebt');
             });
         });
         Route::middleware(['role:admin'])->group(function () {

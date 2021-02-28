@@ -21,9 +21,9 @@
         </div>
 
         <div class="d-flex align-items-center justify-content-between">
-            <a href="#" class="btn btn-light-primary font-weight-bolder btn-sm">
+            {{-- <a href="#" class="btn btn-light-primary font-weight-bolder btn-sm">
                 Actions
-            </a>
+            </a> --}}
             <button class="d-flex align-items-center btn btn-success" data-toggle="modal" data-target="#payModal">
                 <span>Pay</span>
             </button>

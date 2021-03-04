@@ -107,19 +107,54 @@ class DebtController extends Controller
 
     public function payDebt(Request $request)
     {
-       $data['status'] = $this->exceedDebtAmount($request->pay_amount);
+    $pay_amount = $request->pay_amount;
+       $data = $this->exceedDebtAmount($pay_amount);
+
+        if(!$data['status']){
+            $unpaid_list = Debt::where('user_id', Auth::id())->where('status', 'unpaid')->orwhere('status', 'partial')->orderBy('created_at', 'asc')->get();
+            $data['unpaid_list'] = $unpaid_list;
+
+            foreach($unpaid_list as $list){
+                // if($list['status'] == 'unpaid'){
+                    if($list['amount'] <= $pay_amount){
+                        $debt = Debt::find($list['id']);
+                        $debt->paid = $list['amount'];
+                        $debt->status = 'paid';
+                        $debt->save();
+                        $pay_amount = $pay_amount - $list['amount'];
+                        if($pay_amount == 0){
+                            break;
+                        }
+                    }else{
+                        $debt = Debt::find($list['id']);
+                        $debt->paid = $debt->paid + $pay_amount;
+                        $debt->status = 'partial';
+                        $debt->save();
+                        $pay_amount = $pay_amount - $pay_amount;
+                        break;
+                    }
+                // }elseif($list['status'] == 'partial'){
+
+                // }
+            }
+        }
 
         return response()->json($data);
     }
 
     protected function exceedDebtAmount($amount)
     {
-        $unpaid = Debt::where('user_id', Auth::id())->where('status', 'unpaid')->sum('amount');
-
-        if($amount <= $unpaid){
-            return false;
+        // $unpaid = Debt::where('user_id', Auth::id())->where('status', 'unpaid')->orwhere('status', 'partial')->sum('amount');
+        $unpaid['total'] = Debt::where('user_id', Auth::id())->where('status', 'unpaid')->sum('amount');
+        // $unpaid['total'] = $unpaid['total'] + Debt::where('user_id', Auth::id())->where('status', 'unpaid')->orwhere('status', 'partial')->sum('amount');
+        // KIV dulu
+        // kena tambah status extra money(wallet)
+        if($amount <= $unpaid['total']){
+            $unpaid['status'] = false;
+            return $unpaid;
         }else{
-            return true;
+            $unpaid['status'] = true;
+            return $unpaid;
         }
     }
 }

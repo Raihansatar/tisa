@@ -86,7 +86,7 @@
                     <div class="row mb-3">
                         <div class="col-12">
                             <label class="col-form-label" for="">Amount <span style="color: red">*</span></label>
-                            <input type="number" class="form-control col-12" name="debt_amount" id="debt_amount" required>
+                            <input type="number" class="form-control col-12" step="0.01" name="debt_amount" id="debt_amount" required>
                         </div>
                     </div>
                     <div class="row mb-3">

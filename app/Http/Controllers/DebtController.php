@@ -115,7 +115,9 @@ class DebtController extends Controller
             $data['unpaid_list'] = $unpaid_list;
 
             foreach($unpaid_list as $list){
-                // if($list['status'] == 'unpaid'){
+
+                
+                if($list['status'] == 'unpaid'){
                     if($list['amount'] <= $pay_amount){
                         $debt = Debt::find($list['id']);
                         $debt->paid = $list['amount'];
@@ -125,17 +127,18 @@ class DebtController extends Controller
                         if($pay_amount == 0){
                             break;
                         }
-                    }else{
-                        $debt = Debt::find($list['id']);
-                        $debt->paid = $debt->paid + $pay_amount;
-                        $debt->status = 'partial';
-                        $debt->save();
-                        $pay_amount = $pay_amount - $pay_amount;
-                        break;
                     }
-                // }elseif($list['status'] == 'partial'){
+                    // else{
+                    //     $debt = Debt::find($list['id']);
+                    //     $debt->paid = $debt->paid + $pay_amount;
+                    //     $debt->status = 'partial';
+                    //     $debt->save();
+                    //     $pay_amount = $pay_amount - $pay_amount;
+                    //     break;
+                    // }
+                }elseif($list['status'] == 'partial'){
 
-                // }
+                }
             }
         }
 

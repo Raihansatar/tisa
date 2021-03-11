@@ -24,9 +24,9 @@
             {{-- <a href="#" class="btn btn-light-primary font-weight-bolder btn-sm">
                 Actions
             </a> --}}
-            <button class="d-flex align-items-center btn btn-success" data-toggle="modal" data-target="#payModal">
+            {{-- <button class="d-flex align-items-center btn btn-success" data-toggle="modal" data-target="#payModal">
                 <span>Pay</span>
-            </button>
+            </button> --}}
             
             <button class="d-flex align-items-center btn btn-primary" data-toggle="modal" data-target="#addDebtModal">
                 <i class="bi bi-plus-square"></i>
@@ -213,6 +213,7 @@
                 <thead>
                     <th>Title</th>
                     <th>Amount</th>
+                    <th>Paid</th>
                     <th>Note</th>
                     <th>Time</th>
                     <th>Status</th>
@@ -406,20 +407,24 @@
                             $('#payOneModal').modal();
                             $('#payment_one_id').html($(this).data('id'));
                         })
+                        $('.edit_pay').click(function(){
+                            alert('lek luh, tok buat lagi, tokdea')
+                        })
                     }
                 },
                 "columns": [
                     {data: 'title', name: 'title'},
-                    {data: 'amount', name: 'category'},
+                    {data: 'amount', name: 'amount'},
+                    {data: 'paid', name: 'paid'},
                     {data: 'note', name: 'note'},
                     {data: 'datetime', name: 'datetime'},
                     {data: 'status', name: 'status'},
                     {data: 'action', name: 'action'},
                 ],
-                "order": [[ 3, "desc" ]],
+                "order": [[ 4, "desc" ]],
                 "columnDefs": [
                     {
-                        targets: 3,
+                        targets: 4,
                         "render": function ( data, type, row ) {
                             return moment(data).calendar();
                         },

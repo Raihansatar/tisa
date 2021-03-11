@@ -205,7 +205,7 @@
     <div class="card">
         <div class="card-header">
             <span class="card-title">
-                Today's debt (Date)
+                Today's debt (Date nanti letok)
             </span>
         </div>
         <div class="card-body">
@@ -279,10 +279,11 @@
             });
 
             $('#filter_reset').click(function(){
-                filter = $(this).val();
-                $(this).addClass('active');
-                $('#filter_show_all').removeClass('active');
-                $('#filter_today').removeClass('active');
+                alert('lek wehh ni tok buat lagi')
+                // filter = $(this).val();
+                // $(this).addClass('active');
+                // $('#filter_show_all').removeClass('active');
+                // $('#filter_today').removeClass('active');
 
 
                 debt_datatable.draw();
@@ -375,6 +376,10 @@
             var debt_datatable = $('#debt_datatable').DataTable({
                 "responsive": true,
                 "serverSide": true,
+                "processing": true,
+                "language": {
+                    "emptyTable": "No debt today"
+                },
                 "ajax": {
                     url: "{{ route('debt.ajax.datatable') }}",
                     data: {

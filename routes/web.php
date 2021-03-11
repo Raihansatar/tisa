@@ -39,6 +39,7 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/getTotalDebt', [DebtController::class, 'getTotalDebt'])->name('debt.ajax.getTotalDebt');
                 Route::post('/createDebt', [DebtController::class, 'createDebt'])->name('debt.ajax.createDebt');
                 Route::post('/payDebt', [DebtController::class, 'payDebt'])->name('debt.ajax.payDebt');
+                Route::post('/payOneDebt', [DebtController::class, 'payOneDebt'])->name('debt.ajax.payOneDebt');
             });
         });
         Route::middleware(['role:admin'])->group(function () {

@@ -36,7 +36,7 @@
     </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal All in one-->
 <div class="modal fade" id="payModal" tabindex="-1" aria-labelledby="payModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -52,6 +52,33 @@
                     <div class="col-12">
                         <label class="col-form-label" for="">Amount <span style="color: red">*</span></label>
                         <input type="number" step="0.01" class="form-control" name="pay_amount" id="pay_amount" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal pay one-->
+<div class="modal fade" id="payOneModal" tabindex="-1" aria-labelledby="payOneModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="">How much you want to pay? <span hidden id="payment_one_id"></span> </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
+            </div>
+            <form class="" id="payOneForm" action="" method="POST">
+                @csrf
+                <div class="modal-body">
+                    <div class="col-12">
+                        <label class="col-form-label" for="">Amount <span style="color: red">*</span></label>
+                        <input type="number" step="0.01" class="form-control" name="pay_one_amount" id="pay_one_amount" required>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -189,7 +216,7 @@
                     <th>Note</th>
                     <th>Time</th>
                     <th>Status</th>
-                    <th>Action</th>
+                    <th width="10%">Action</th>
                 </thead>
             </table>
         </div>
@@ -297,6 +324,30 @@
                 })
             })
 
+            $('#payOneForm').submit(function(e){
+                e.preventDefault();
+
+                console.log($('#pay_one_amount').val())
+                var id = $('#payment_one_id').html();
+                alert(id);
+                $.ajax({
+                    url: '{{ route('debt.ajax.payOneDebt') }}',
+                    type: 'POST',
+                    data: {
+                        'id': id,
+                        'pay_amount': $('#pay_one_amount').val()
+                    },
+                    dataType: 'JSON',
+                    success: function(data){
+                        console.table(data)
+                        $('#payOneModal').modal('toggle');
+                        $('#payOneForm').trigger("reset");
+                        debt_datatable.draw();
+                        getTotal()
+                    }
+                })
+            })
+
             $('#addDebtForm').submit(function(e){
                 e.preventDefault();
 
@@ -345,6 +396,12 @@
                             return filter;
                         }
                     },
+                    complete: function(){
+                        $('.button_pay').click(function(){
+                            $('#payOneModal').modal();
+                            $('#payment_one_id').html($(this).data('id'));
+                        })
+                    }
                 },
                 "columns": [
                     {data: 'title', name: 'title'},
@@ -362,16 +419,8 @@
                             return moment(data).calendar();
                         },
                     },
-                    // {
-                    //     targets: 5,
-                    //     "render": function ( data, type, row ) {
-                            
-                    //         return data;
-                    //     },
-                    // },
                 ]
             });
-
         });
     </script>
 @endpush

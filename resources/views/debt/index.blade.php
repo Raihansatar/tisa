@@ -189,6 +189,7 @@
                     <th>Note</th>
                     <th>Time</th>
                     <th>Status</th>
+                    <th>Action</th>
                 </thead>
             </table>
         </div>
@@ -351,19 +352,28 @@
                     {data: 'note', name: 'note'},
                     {data: 'datetime', name: 'datetime'},
                     {data: 'status', name: 'status'},
+                    {data: 'action', name: 'action'},
                 ],
                 "order": [[ 3, "desc" ]],
                 "columnDefs": [
                     {
                         targets: 3,
                         "render": function ( data, type, row ) {
-                            return moment(data).calendar();;
+                            return moment(data).calendar();
                         },
                     },
+                    // {
+                    //     targets: 5,
+                    //     "render": function ( data, type, row ) {
+                            
+                    //         return data;
+                    //     },
+                    // },
                 ]
             });
 
         });
     </script>
 @endpush
+
 

@@ -13,6 +13,12 @@ class DebtController extends Controller
     {
         return view('debt.index');
     }
+    
+    public function getAllDebt()
+    {
+        $data = Debt::orderBy('created_at', 'DESC')->get();
+        return $data;
+    }
 
     public function debtDatatable(Request $request)
     {
